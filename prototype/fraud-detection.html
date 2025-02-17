@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection - AI Financial Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span class="logo-icon"></span>
+                AI Financial Assistant
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">Portfolio</a>
+                <a class="nav-link" href="market.html">Market Updates</a>
+                <a class="nav-link" href="tax.html">Tax Assistant</a>
+                <a class="nav-link" href="currency-manager.html">Currency Manager</a>
+                <a class="nav-link active" href="fraud-detection.html">Fraud Detection</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Section Title -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Fraud Detection Monitor
+                </h2>
+
+                <div class="row g-4">
+                    <!-- Risk Score -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Risk Score</h5>
+                                <div class="risk-score">
+                                    <div class="score-circle">
+                                        <span class="score-value">70</span>
+                                    </div>
+                                    <p class="text-muted mb-0">Account Safety Score</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Alerts -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Real-time Alerts</h5>
+                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                    <span class="pulse"></span>
+                                    <div>Unusual login attempt detected from new location</div>
+                                </div>
+                                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                    <span class="pulse" style="background-color: var(--warning-color)"></span>
+                                    <div>Large transaction pending verification</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Recent Activity</h5>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="12" y1="8" x2="12" y2="16"/>
+                                            <line x1="8" y1="12" x2="16" y2="12"/>
+                                        </svg>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="activity-amount">$2,500.00</div>
+                                                <small class="text-muted">International Transfer</small>
+                                            </div>
+                                            <span class="status-badge status-suspicious">Suspicious</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                            <line x1="1" y1="10" x2="23" y2="10"/>
+                                        </svg>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="activity-amount">$150.00</div>
+                                                <small class="text-muted">Card Payment</small>
+                                            </div>
+                                            <span class="status-badge status-safe">Safe</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Recommendations -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Security Recommendations</h5>
+                                <div class="recommendation-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <path d="M9 12l2 2 4-4"/>
+                                    </svg>
+                                    <span>Enable 2FA Authentication</span>
+                                </div>
+                                <div class="recommendation-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                    <span>Update security questions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to update risk score animation
+        function updateRiskScore(score) {
+            const scoreCircle = document.querySelector('.score-circle');
+            const percentage = (score / 100) * 100;
+            scoreCircle.style.background = `conic-gradient(var(--primary-color) 0%, var(--primary-color) ${percentage}%, #e9ecef ${percentage}%, #e9ecef 100%)`;
+        }
+
+        // Function to add new activity
+        function addActivity(amount, type, status) {
+            const activityContainer = document.querySelector('.card-body');
+            const newActivity = document.createElement('div');
+            newActivity.className = 'activity-item';
+            // Add activity HTML structure...
+            activityContainer.insertBefore(newActivity, activityContainer.firstChild);
+        }
+
+        // Initialize with default risk score
+        document.addEventListener('DOMContentLoaded', () => {
+            updateRiskScore(70);
+        });
+    </script>
+</body>
+</html>
