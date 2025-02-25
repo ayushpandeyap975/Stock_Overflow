@@ -1,213 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
-        }
-
-        .container {
-            background: white;
-            width: 100%;
-            max-width: 850px;
-            height: 550px;
-            border-radius: 30px;
-            display: flex;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(130, 147, 255, 0.1);
-        }
-
-        .left-section {
-            width: 30%;
-            background: #6C5CE7;
-            color: white;
-            padding: 40px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .left-section::after {
-            content: '';
-            position: absolute;
-            right: -100px;
-            top: 0;
-            width: 300px;
-            height: 140%;
-            background: #6C5CE7;
-            border-radius: 0 0 200px 0;
-            z-index: 1;
-        }
-
-        .welcome-text {
-            position: relative;
-            z-index: 2;
-        }
-
-        .welcome-text h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .welcome-text p {
-            margin-bottom: 30px;
-            opacity: 0.7;
-        }
-
-        .register-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .right-section {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .login-form {
-            max-width: 320px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .login-form h2 {
-            font-size: 2em;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 15px;
-            padding-left: 45px;
-            border: none;
-            border-radius: 8px;
-            background: #f5f5f5;
-            font-size: 1em;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #8293FF;
-            color: white;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .login-button:hover {
-            background: #6C5CE7;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                height: auto;
-                margin: 20px;
-            }
-
-            .left-section {
-                width: 100%;
-                padding: 30px;
-            }
-
-            .left-section::after {
-                display: none;
-            }
-
-            .right-section {
-                padding: 30px;
-            }
-        }
-    </style>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>        <!--https://boxicons.com/ -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Sign in / Sign up</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="left-section">
-            <div class="welcome-text">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h1>Hello,<br>Welcome Back!</h1>
-                <!-- <h1>Welcome Back!</h1> -->
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h2>Don't have an account?</h2>
-                <a href="register.html" class="register-link">Register</a>
-            </div>
-        </div>
-        <div class="right-section">
-            <form class="login-form" id="loginForm">
-                <h2>Login</h2>
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" required>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
+                    <a href="#" class="icons"><i class='bx bxl-facebook'></i></a>
+                    <!-- <a href="#" class="icons"><i class='bx bxl-github'></i></a> -->
+                    <!-- <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a> -->
                 </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="login-button">Login</button>
+                <span>Register with E-mail</span>
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Enter E-mail">
+                <input type="password" placeholder="Enter Password">
+                <div class="g-recaptcha" data-sitekey="6Ld5_eEqAAAAAD6qZ7HUCNrjB-qd561JnJsk120v"></div>
+                <button>Sign Up</button>
             </form>
+        </div>
+
+
+        <div class="form-container sign-in">
+            <form>
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
+                    <a href="#" class="icons"><i class='bx bxl-facebook'></i></a>
+                    <!-- <a href="#" class="icons"><i class='bx bxl-github'></i></a> -->
+                    <!-- <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a> -->
+                </div>
+                <span>Login With Email & Password</span>
+                <input type="email" placeholder="Enter E-mail">
+                <input type="password" placeholder="Enter Password">
+                <a href="#">Forget Password?</a>
+                <div class="g-recaptcha" data-sitekey="6Ld5_eEqAAAAAD6qZ7HUCNrjB-qd561JnJsk120v"></div>
+                <button>Login</button>
+            </form>
+        </div>
+
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <br>
+                    <img src="namaste-religion-svgrepo-com.svg" alt="SVG Image" width="200" height="200" />
+                    <br>
+                    <br>
+                    
+                    
+                    <h4>Already have an account ?</h4>
+                    <button class="hidden" id="login">Login</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Welcome !</h1>
+                    <br>
+                    <img src="namaste-religion-svgrepo-com.svg" alt="SVG Image" width="200" height="200" />
+                    <br>
+                    <br>
+                    
+                    <h4>Don't have an account ?</h4>
+                    <!-- <h1>Hii Coder's</h1> -->
+                    <!-- <p>Join "Code With Patel" to Improve Your Coding Skills</p> -->
+                    <button class="hidden" id="register">Register</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your login logic here
-            const inputs = this.querySelectorAll('input');
-            const formData = {};
-            inputs.forEach(input => {
-                formData[input.placeholder.toLowerCase()] = input.value;
-            });
-            console.log('Form submitted with data:', formData);
-        });
-    </script>
+    <script src="animate.js"></script>
 </body>
+
 </html>
