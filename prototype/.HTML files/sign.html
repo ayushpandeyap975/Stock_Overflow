@@ -10,17 +10,40 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>        <!--https://boxicons.com/ -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Sign in / Sign up</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
+    <!-- <div id="g_id_onload"
+    data-client_id="78723968658-pbftku42vjltbf4a0rr6gshkcbd94tdk.apps.googleusercontent.com"
+    data-context="signin"
+    data-ux_mode="popup"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false">
+</div>
 
+<div class="g_id_signin"
+    data-type="standard"
+    data-size="large"
+    data-theme="outline"
+    data-text="sign_in_with"
+    data-shape="rectangular"
+    data-logo_alignment="left">
+</div> -->
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form action="https://api.web3forms.com/submit"
+            method = "POST"
+            >
+            <input type="hidden"
+            name="access_key"
+            value="a2afd7c9-99e4-4a8a-817e-cda4fbd97c32"
+            />
                 <h1>Create Account</h1>
                 <div class="social-icons">
-                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
-                    <a href="#" class="icons"><i class='bx bxl-facebook'></i></a>
+                    <!-- <a  class="icons"><i class='bx bxl-google'></i></a> -->
+                   
+                    <!-- <a href="#" class="icons"><i class='bx bxl-facebook'></i></a> -->
                     <!-- <a href="#" class="icons"><i class='bx bxl-github'></i></a> -->
                     <!-- <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a> -->
                 </div>
@@ -38,11 +61,30 @@
             <form>
                 <h1>Sign In</h1>
                 <div class="social-icons">
-                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
-                    <a href="#" class="icons"><i class='bx bxl-facebook'></i></a>
+                    <!-- <a href="#" class="icons"><i class='bx bxl-google'></i></a> -->
+                    <!-- <a href="#" class="icons"><i class='bx bxl-facebook'></i></a> -->
+                    <div id="g_id_onload"
+                    data-client_id="78723968658-pbftku42vjltbf4a0rr6gshkcbd94tdk.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="false">
+                </div>
+                
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-size="large"
+                    data-theme="outline"
+                    data-text="sign_in_with"
+                    data-shape="rectangular"
+                    data-logo_alignment="left">
+                </div>
                     <!-- <a href="#" class="icons"><i class='bx bxl-github'></i></a> -->
                     <!-- <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a> -->
                 </div>
+                <span>or</span>
+                <br>
+                
                 <span>Login With Email & Password</span>
                 <input type="email" placeholder="Enter E-mail">
                 <input type="password" placeholder="Enter Password">
@@ -83,6 +125,18 @@
     </div>
 
     <script src="animate.js"></script>
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            
+            // Decode the JWT (you should validate it in the backend)
+            const token = response.credential;
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            console.log("User Info: ", payload);
+            
+            // You can now use payload data (e.g., payload.email, payload.name)
+        }
+    </script>
 </body>
 
 </html>
