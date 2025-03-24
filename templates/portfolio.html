@@ -1,0 +1,125 @@
+{% extends "base.html" %} 
+{% load static %} 
+ 
+{% block content %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"></path>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                    </svg>
+                    Portfolio Performance
+                </h2>
+
+                <div id="portfolioContent" class="d-none">
+                    <!-- Portfolio Stats -->
+                    <div class="portfolio-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalValue">$12,450</div>
+                            <div class="stat-label">Total Value</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="dailyChange">+2.3%</div>
+                            <div class="stat-label">Daily Change</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="yearToDate">+15.7%</div>
+                            <div class="stat-label">Year to Date</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalStocks">4</div>
+                            <div class="stat-label">Stocks</div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Tabs -->
+                    <div class="performance-tabs">
+                        <div class="performance-tab active" data-period="1m">1M</div>
+                        <div class="performance-tab" data-period="3m">3M</div>
+                        <div class="performance-tab" data-period="6m">6M</div>
+                        <div class="performance-tab" data-period="1y">1Y</div>
+                        <div class="performance-tab" data-period="all">All</div>
+                    </div>
+
+                    <!-- Performance Chart -->
+                    <div class="performance-chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+
+                    <!-- Prediction Range -->
+                    <div class="prediction-range">
+                        <div class="prediction-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                                <line x1="9" y1="9" x2="9.01" y2="9" />
+                                <line x1="15" y1="9" x2="15.01" y2="9" />
+                            </svg>
+                            AI Prediction (Next 12 Months)
+                        </div>
+                        <p class="mb-2">Based on historical data and market trends, our AI predicts your portfolio
+                            performance over the next year:</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar"
+                                style="width: 60%; background-color: var(--primary-color)" aria-valuenow="60"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 20%"
+                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="prediction-values">
+                            <span class="prediction-low">-12.5%</span>
+                            <span class="prediction-expected">+18.3%</span>
+                            <span class="prediction-high">+32.7%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" width="48" height="48">
+                        <path d="M3 3v18h18"></path>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                    </svg>
+                    <p class="mt-3 text-muted">Add stocks to your portfolio to see performance data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Portfolio Card -->
+        <div class="card">
+            <div class="card-body">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Build Your Portfolio
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label for="stockSearch" class="form-label">Search for stocks</label>
+                            <div class="stock-input">
+                                <input type="text" class="form-control" id="stockSearch"
+                                    placeholder="Enter stock symbol or name">
+                                <div class="stock-suggestions d-none" id="stockSuggestions"></div>
+                            </div>
+                        </div>
+
+                        <div class="selected-stocks" id="selectedStocks">
+                            <!-- Selected stocks will appear here -->
+                        </div>
+
+                        <button class="btn btn-primary mt-3" id="analyzePortfolio">Analyze Portfolio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   {% endblock %}

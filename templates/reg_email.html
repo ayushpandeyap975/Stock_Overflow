@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to StockOverflow</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #141e30, #243b55);
+
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            width: 30%;
+            min-width: 200px;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-box h3 {
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #ff8c00;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #ff6500;
+        }
+
+        .profile-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ffcc00;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome {{user_name}} to <span style="color: #ff8c00;">StockOverflow</span></h1>
+        <p>A complete stock analysis solution for traders and investors.</p>
+
+        <div class="features">
+            <div class="feature-box">
+                <h3>📈 Live Market Data</h3>
+                <p>Get real-time stock updates and trends.</p>
+            </div>
+            <div class="feature-box">
+                <h3>📊 Advanced Analytics</h3>
+                <p>Utilize AI-driven insights for better investments.</p>
+            </div>
+            <div class="feature-box">
+                <h3>💰 Smart Portfolio</h3>
+                <p>Manage your assets and track performance.</p>
+            </div>
+        </div>
+
+        <p><strong>Why complete your profile?</strong></p>
+        <p>🔹 Personalized investment recommendations</p>
+        <p>🔹 AI-driven stock insights tailored to you</p>
+        <p>🔹 Exclusive access to premium market data</p>
+
+        <a href="#" class="btn" id="completeProfileBtn">Complete Your Profile</a>
+        <p class="profile-message">Complete your profile for a better experience!</p>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#completeProfileBtn").hover(function(){
+                $(".profile-message").css("opacity", "1");
+            }, function(){
+                $(".profile-message").css("opacity", "0");
+            });
+        });
+    </script>
+
+</body>
+</html>

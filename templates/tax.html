@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Assistant - StockOverflow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+    <link rel="stylesheet" href="designs/style-tax.css">
+    <link href="designs/burger.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images\tax-svgrepo-com.svg">
+</head>
+
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/stockoverflow logo.png" height="50px" width="50px">
+                StockOverflow
+            </a>
+
+            <div class="dropdown">
+                <a class="dropdown" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="container" onclick="myFunction(this)">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="portfolio.html">Portfolio</a></li>
+                    <li><a class="dropdown-item" href="risk.html">Risk Assessment</a></li>
+                    <li><a class="dropdown-item" href="market.html">Market Updates</a></li>
+                    <li><a class="dropdown-item" href="tax.html">Tax Assistant</a></li>
+                    <li><a class="dropdown-item" href="currency.html">Currency Exchange</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="section-title">
+                    📊 Tax Assistant
+                </h2>
+
+                <div class="tax-tabs">
+                    <div class="tax-tab active" data-tab="calculator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-calculator me-2" viewBox="0 0 16 16">
+                            <path
+                                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                            <path
+                                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                        </svg>
+                        Tax Calculator
+                    </div>
+                    <div class="tax-tab" data-tab="education">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-book me-2" viewBox="0 0 16 16">
+                            <path
+                                d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                        </svg>
+                        Tax Education
+                    </div>
+                </div>
+
+                <!-- Tax Calculator Section -->
+                <div class="tax-content active" id="calculator-content">
+                    <form id="taxForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">💰 Short Term Capital Gains (STCG)</label>
+                                    <div class="form-hint">Gains from selling stocks within 1 year. Taxed at 15%.</div>
+                                    <input type="number" id="stcg" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">💰 Long Term Capital Gains (LTCG)</label>
+                                    <div class="form-hint">Gains from stocks held for more than 1 year. ₹1L exempt;
+                                        excess taxed at 10%.</div>
+                                    <input type="number" id="ltcg" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">📈 Intraday Income</label>
+                                    <div class="form-hint">Profits from buying & selling stocks on same day. Taxed as
+                                        business income (30%).</div>
+                                    <input type="number" id="intraday" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">📝 F&O Income (Futures & Options)</label>
+                                    <div class="form-hint">Profits from derivatives trading. Treated as business income,
+                                        taxed at 30%.</div>
+                                    <input type="number" id="fo" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">💵 Dividends</label>
+                                    <div class="form-hint">Earnings from company shares. Added to income and taxed as
+                                        per your slab.</div>
+                                    <input type="number" id="dividend" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">💸 Other Income</label>
+                                    <div class="form-hint">Any other earnings (interest, rental, etc.). Taxed as per
+                                        your slab rate.</div>
+                                    <input type="number" id="other" class="form-control" placeholder="Enter amount">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-lg w-100 btn-calculate" id="calculateBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle me-2" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                            </svg>
+                            Calculate Tax
+                        </button>
+                    </form>
+
+                    <div class="tax-result d-none" id="taxResult">
+                        <div class="result-title">Tax Summary</div>
+                        <div class="result-value" id="totalTaxValue">₹0.00</div>
+
+                        <div class="breakdown-title">Tax Breakdown</div>
+                        <ul class="breakdown-list" id="breakdownList">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+
+                        <div class="chart-container">
+                            <canvas id="taxChart"></canvas>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100 btn-print" id="printBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-printer me-2" viewBox="0 0 16 16">
+                                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                <path
+                                    d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                            </svg>
+                            Print Tax Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tax Education Section -->
+                <div class="tax-content" id="education-content">
+                    <div class="education-section">
+                        <h2 class="mb-4 text-center">💡Comprehensive Tax Education for Investors (2024-25)</h2>
+
+                        <h3>📈 1. Short Term Capital Gains (STCG)</h3>
+                        <p>Gains from sale of listed equity shares or equity mutual funds held for <strong>less than 12
+                                months</strong>. Tax rate is <strong>15%</strong> (Section 111A) when Securities
+                            Transaction Tax (STT) is paid. Losses can be set off against other capital gains and carried
+                            forward for up to 8 years.</p>
+
+                        <h3>📉 2. Long Term Capital Gains (LTCG)</h3>
+                        <p>Gains from listed equity shares/mutual funds held for <strong>more than 12 months</strong>.
+                            Gains up to ₹1 lakh annually are tax-free; above that taxed at <strong>10%</strong> (Section
+                            112A) without indexation benefit. Losses can be set off and carried forward for 8 years.</p>
+
+                        <h3>🔄 3. Intraday Trading (Speculative Business Income)</h3>
+                        <p>Buying and selling shares on the same day. Considered speculative income under Section 43(5),
+                            taxed as per normal slab rates (up to <strong>30%</strong>). Business expenses like
+                            brokerage, internet, advisory can be claimed.</p>
+
+                        <h3>📊 4. Futures & Options (F&O Trading)</h3>
+                        <p>Classified as <strong>non-speculative business income</strong>. Taxed as per individual slab
+                            rates. Allowed to deduct business expenses. Audit is required if turnover exceeds ₹10 crores
+                            or profit is less than 6% of turnover.</p>
+
+                        <h3>💵 5. Dividends</h3>
+                        <p>Dividend income from stocks and mutual funds is taxed as per slab rates. If annual dividend
+                            exceeds ₹5,000, companies deduct <strong>10% TDS</strong>. No exemption available from FY
+                            2020-21 onwards.</p>
+
+                        <h3>💸 6. Other Income</h3>
+                        <p>Includes interest from savings, fixed deposits, rental income, and side business income.
+                            Taxed under respective heads at normal slab rates. Must be aggregated for final tax
+                            calculation.</p>
+
+                        <div class="tax-tip">
+                            <div class="tax-tip-title">⚙️ Key Tax Planning Tips:</div>
+                            <ul>
+                                <li>Losses must be reported in ITR to carry forward and set off.</li>
+                                <li>Business income (F&O/Intraday) should consider proper expense tracking.</li>
+                                <li>Investments in ELSS, PPF, NPS qualify for deductions under Section 80C and 80CCD.
+                                </li>
+                                <li>Dividend stripping and bonus stripping rules apply to avoid artificial losses.</li>
+                                <li>Tax audit and maintenance of books mandatory if trading turnover exceeds prescribed
+                                    limits.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="script/burger.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="script/script-tax.js"></script>
+    <br>
+
+    <footer>
+        <div class="container">
+            <div class="content">
+                <div class="left">
+                    <div class="logo">StockOverflow</div>
+                    <p>Most relevant platform for learning concepts and growing financially.</p>
+                </div>
+
+                <div class="right">
+                    <div class="links">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Terms & Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="links">
+                        <h3>Contact Us</h3>
+                        <ul>
+                            <li>+1 (555) 123-4567</li>
+                            <li>contact@example.com</li>
+                            <li>123 Main Street, City, State, ZIP</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>Team Synapse © 2025</p>
+                <div class="socials">
+                    <a href="#"><img src="images/facebook-logo.svg" alt="" /></a>
+                    <a href="#"><img src="images/instagram-logo.svg" alt="" /></a>
+                    <a href="#"><img src="images/twitter-logo.svg" alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

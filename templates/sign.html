@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'designs/style-sign.css'%}">
+    <link rel="icon" type="image/png" href="{% static 'images\stockoverflow logo.png' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Sign in / Sign up</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="{%url 'registrations' %}" method="post">
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
+                    <a href="#" class="icons"><i class='bx bxl-facebook'></i></a>
+                </div>
+                <span>Register with E-mail</span>
+                <input type="text" name="name" placeholder="Name">
+                <input type="email" name="email" placeholder="Enter E-mail" id="email_input">
+                <span id="email_error" style="color: red;"></span>
+                <input type="password" name="password" placeholder="Enter Password" id="password_input">
+                <div class="g-recaptcha" data-sitekey="6Ld5_eEqAAAAAD6qZ7HUCNrjB-qd561JnJsk120v"></div>
+                <button value="submit" type="submit">Sign Up</button>
+            </form>
+        </div>
+
+
+        <div class="form-container sign-in">
+            <form action="{% url 'login' %}" method="post">
+                <h1>Sign In</h1>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="social-icons">
+                </div>
+                <span>Login With Email & Password</span>
+                <input type="email" name="email" placeholder="Enter E-mail">
+                <input type="password" name="password" placeholder="Enter Password">
+                <a href="{% url 'forgot_password' %}">Forget Password?</a>
+                <div class="g-recaptcha" data-sitekey="6Ld5_eEqAAAAAD6qZ7HUCNrjB-qd561JnJsk120v"></div>
+                <button value="submit" type="submit">Login</button>
+            </form>
+        </div>
+
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <br>
+                    <img src="{% static 'images/namaste-religion-svgrepo-com.svg' %}" alt="SVG Image" width="200"
+                        height="200" />
+                    <br>
+                    <br>
+
+
+                    <h4>Already have an account ?</h4>
+                    <button class="hidden" id="login">Login</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Welcome !</h1>
+                    <br>
+                    <img src="{% static 'images/namaste-religion-svgrepo-com.svg' %}" alt="SVG Image" width="200"
+                        height="200" />
+                    <br>
+                    <br>
+
+                    <h4>Don't have an account ?</h4>
+                    <button class="hidden" id="register">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'script/animate.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+<script>
+    $(document).ready(function(){
+        $('#email_input').on('input', function(){
+            var email = $(this).val();
+            console.log("email", email);
+            $.ajax({
+                url: '{% url "check_email" %}',
+                type: 'POST',
+                data: {email: email},
+                success: function(response){
+                    console.log("response", response);
+                    $('#email_error').text(response.exists ? "Email already exists" : "");
+                }
+            });
+        });
+    });
+
+   
+    
+</script>
+</html>

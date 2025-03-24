@@ -1,0 +1,105 @@
+{% extends "base.html" %} 
+{% load static %} 
+ 
+{% block content %}
+<style>
+  
+</style>
+        <link rel="stylesheet" href="{% static 'designs/profile_styles.css' %}">
+        <div class="profile-container">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="showSection('profile-form')">Public Profile</a></li>
+                    <li><a href="javascript:void(0);" onclick="showSection('password-form')">Change Password</a></li>
+                    <li><a href="javascript:void(0);" onclick="showSection('about-form')">About Yourself</a></li>
+                </ul>
+            </aside>
+            <main class="profile-content">
+                <div class="profile-card">
+                    <div id="profile-form">
+                        <div class="profile-image">
+                            <img src="{% static 'images/icons8-user-100.png' %}" alt="Profile Picture">
+                            <button class="upload-btn">Upload Image</button>
+                            <button class="delete-btn">Delete</button>
+                        </div>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
+                            {% csrf_token %}
+                            
+                            <label>First Name</label>
+                            <input type="text" name="first_name" value="{{ data.first_name }}" required>
+                        
+                            <label>Last Name</label>
+                            <input type="text" name="last_name" value="{{ data.last_name }}" required>
+                          
+                            <label>Email Address<span style="color: #c82333;">(Cannot be edited)</span></label>
+                            <input type="email" name="email" value="{{ data.email }}" disabled>
+                        
+                        
+                            <label>Mobile Phone (Optional)</label>
+                            <input type="text" name="phone" value="{{ data.phone|default_if_none:'' }}">
+                        
+                            <button class="save-btn" type="submit" value="submit">Save Changes</button>
+                            <button class="save-btn" type="button" onclick="location.href='{% url 'dashboard' %}'">Back to Dashboard</button>
+
+                        </form>
+                        
+                    </div>
+                    <div id="password-form" style="display: none;">
+                        <form class="profile-form" method="POST" action="{% url 'change_password' %}">
+                            {% csrf_token %}
+                            <input type="password" id="old_password" name="old_password" placeholder="Current Password">
+                            <input type="password" id="new_password" name="new_password" placeholder="New Password">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm New Password">
+                            <button class="save-btn" type="submit" value="submit">Change Password</button>
+                            <button class="save-btn" type="button" onclick="location.href='{% url 'dashboard' %}'">Back to Dashboard</button>
+                        </form>
+                    </div>
+                    <div id="about-form" style="display: none;">
+                        <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
+                            {% csrf_token %}
+                            <label>Date of Birth</label>
+                            <input type="date" value="{{ data.date_of_birth|date:'Y-m-d'|default_if_none:'' }}">
+                            
+                            <label>Investment Experience</label>
+                            <select name="investment_experience" class="form-select" id="investment_experience">
+                                <option value="beginner" {% if data.investment_experience == 'beginner' %}selected{% endif %}>Beginner</option>
+                                <option value="intermediate" {% if data.investment_experience == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                                <option value="advanced" {% if data.investment_experience == 'advanced' %}selected{% endif %}>Advanced</option>
+                            </select>
+                            <label>Risk Tolerance</label>
+                            <select name="risk_tolerance" class="form-select" id="risk_tolerance">
+                                <option value="low" {% if data.risk_tolerance == 'low' %}selected{% endif %}>Low</option>
+                                <option value="medium" {% if data.risk_tolerance == 'medium' %}selected{% endif %}>Medium</option>
+                                <option value="high" {% if data.risk_tolerance == 'high' %}selected{% endif %}>High</option>
+                            </select>
+                            
+                            <label>Investment Goals</label>
+                            <textarea name="investment_goals" id="investment_goals" cols="30" rows="10">{{ data.investment_goals|default_if_none:'' }}</textarea>
+                            <button class="save-btn" type="submit" value="submit">Save Changes</button>
+                            <button class="save-btn" type="button" onclick="location.href='{% url 'dashboard' %}'">Back to Dashboard</button>
+
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <script>
+            function showSection(section) {
+                document.getElementById('profile-form').style.display = 'none';
+                document.getElementById('password-form').style.display = 'none';
+                document.getElementById('about-form').style.display = 'none';
+                document.getElementById(section).style.display = 'block';
+            }
+
+            
+        </script>
+        {% endblock %}
