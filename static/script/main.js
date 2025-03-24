@@ -2,13 +2,13 @@ const featuresList = [
   {
     icon: staticUrl + "images/portfolio-svgrepo-com.svg",
     title: "Portfolio Analyzer",
-    link: "portfolio.html",
+    link: "portfolio/portfolio_dashboard/",
   },
 
   {
     icon: staticUrl + "images/risk-assessment-svgrepo-com.svg",
     title: "Risk Supervisor",
-    link: "risk.html",
+    link: "risk/",
   },
 
   {
