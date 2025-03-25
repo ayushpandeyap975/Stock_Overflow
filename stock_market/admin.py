@@ -1,11 +1,7 @@
 from django.contrib import admin
 from .models import Stock, MarketNews, WatchList
 
-@admin.register(Stock)
-class StockAdmin(admin.ModelAdmin):
-    list_display = ('symbol', 'name', 'current_price', 'change_percent', 'volume', 'last_updated')
-    search_fields = ('symbol', 'name')
-    list_filter = ('last_updated',)
+
 
 @admin.register(MarketNews)
 class MarketNewsAdmin(admin.ModelAdmin):
@@ -19,3 +15,10 @@ class WatchListAdmin(admin.ModelAdmin):
     list_display = ('name', 'user', 'created_at')
     search_fields = ('name', 'user__username')
     filter_horizontal = ('stocks',)
+
+@admin.register(Stock)
+class StockAdmin(admin.ModelAdmin):
+    list_display = ('user', 'symbol', 'name', 'last_price', 'predicted_1y', 'predicted_2y', 'predicted_3y', 'predicted_4y', 'predicted_5y', 'graph_path')
+    search_fields = ('symbol', 'name', 'user__username') 
+    list_filter = ('user',) 
+    ordering = ('symbol',)

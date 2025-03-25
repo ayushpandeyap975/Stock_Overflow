@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Manager - StockOverflow</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
-    <link rel="stylesheet" href="designs/style-currency.css">
-    <link href="designs/burger.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="images\currency-exchange-svgrepo-com.svg">
+    <link rel="stylesheet" href="{% static 'designs/style-currency.css' %}">
+    <link href="{% static 'designs/burger.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images\currency-exchange-svgrepo-com.svg' %}">
 </head>
 <body class="bg-light">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="images/stockoverflow logo.png" height="50px" width="50px">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <img src="{% static 'images/stockoverflow logo.png' %}" height="50px" width="50px">
                 StockOverflow
             </a>
 
@@ -29,11 +30,9 @@
                 </a>
               
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="portfolio.html">Portfolio</a></li>
-                  <li><a class="dropdown-item" href="risk.html">Risk Assessment</a></li>
-                  <li><a class="dropdown-item" href="market.html">Market Updates</a></li>
-                  <li><a class="dropdown-item" href="tax.html">Tax Assistant</a></li>
-                  <li><a class="dropdown-item" href="currency.html">Currency Exchange</a></li>
+                    <li><a class="dropdown-item" href="{% url 'market:stock_analysis' %}">Portfolio</a></li>
+                    <li><a class="dropdown-item" href="{% url 'market:market_update' %}">Market Updates</a></li>
+                    <li><a class="dropdown-item" href="{% url 'currency:currency_check' %}">Currency Exchange</a></li>
                 </ul>
             </div>
         </div>
@@ -170,18 +169,18 @@
             <div class="copyright">
                 <p>Team Synapse © 2025</p>
                 <div class="socials">
-                    <a href="#"><img src="images/facebook-logo.svg" alt="" /></a>
-                    <a href="#"><img src="images/instagram-logo.svg" alt="" /></a>
-                    <a href="#"><img src="images/twitter-logo.svg" alt="" /></a>
+                    <a href="#"><img src="{% static 'images/facebook-logo.svg' %}" alt="" /></a>
+                    <a href="#"><img src="{% static 'images/instagram-logo.svg' %}" alt="" /></a>
+                    <a href="#"><img src="{% static 'images/twitter-logo.svg' %}" alt="" /></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-    <script src="script/burger.js"></script>
+    <script src="{% static 'script/burger.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-    <script src="script/script-currency.js"></script>
+    <script src="{% static 'script/script-currency.js' %}"></script>
 </body>
 </html>

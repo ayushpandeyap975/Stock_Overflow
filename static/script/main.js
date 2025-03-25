@@ -2,31 +2,25 @@ const featuresList = [
   {
     icon: staticUrl + "images/portfolio-svgrepo-com.svg",
     title: "Portfolio Analyzer",
-    link: "portfolio.html",
+    link: "http://127.0.0.1:8000/portfolio/portfolio_dashboard/",
   },
 
   {
-    icon: staticUrl + "images/risk-assessment-svgrepo-com.svg",
-    title: "Risk Supervisor",
-    link: "risk.html",
+    icon: staticUrl + "images/chatbot.png", 
+    title: "StockEye Assistant", 
+    link: "",
   },
 
   {
     icon: staticUrl + "images/market-news-newspaper-svgrepo-com.svg",
     title: "Market Updates",
-    link: "market.html",
-  },
-
-  {
-    icon: staticUrl + "images/tax-svgrepo-com.svg",
-    title: "Tax Assistant",
-    link: "tax.html",
+    link: "http://127.0.0.1:8000/market/market_update/",
   },
 
   {
     icon: staticUrl + "images/currency-exchange-svgrepo-com.svg",
     title: "Currency Exchanger",
-    link: "currency.html",
+    link: "http://127.0.0.1:8000/currency/currency_check/",
   },
 ];
 
@@ -106,29 +100,57 @@ const mobileNavMenu = document.querySelector(".mobile-nav-menu");
 const navLinks = document.querySelectorAll(".nav-link");
 let currentTestimonialIndex = 0;
 
-const displayFeatures = () => {
-  featuresList.forEach((f) => {
-    const html = `
-      
-      <a href="${f.link}">
-      <div class="icon">
-        <img src="${f.icon}" alt="img" height="65px" width="65px" />
-      </div>
-      <h3>${f.title}</h3>
-      </a>`;
+document.addEventListener("DOMContentLoaded", () => {
+  let isAuthenticated = false;
 
-    const featureCard = document.createElement("div");
-    featureCard.classList.add("feature-card");
-    featureCard.innerHTML = html;
+  fetch("http://127.0.0.1:8000/accounts/auth_status/")
+      .then(response => response.json())
+      .then(data => {
+          isAuthenticated = data.is_authenticated;
+          displayFeatures(); 
+      })
+      .catch(error => console.error("Error fetching auth status:", error));
 
-    featuresContent.appendChild(featureCard);
-  });
-};
+  const featuresContent = document.querySelector("#features .content");
 
-displayFeatures();
+  const displayFeatures = () => {
+      featuresList.forEach((f) => {
+          const featureCard = document.createElement("div");
+          featureCard.classList.add("feature-card");
+
+          if (isAuthenticated) {
+              featureCard.innerHTML = `
+                  <a href="${f.link}">
+                      <div class="icon">
+                          <img src="${f.icon}" alt="img" height="65px" width="65px" />
+                      </div>
+                      <h3>${f.title}</h3>
+                  </a>`;
+          } else {
+              featureCard.innerHTML = `
+                  <div class="icon">
+                      <img src="${f.icon}" alt="img" height="65px" width="65px" />
+                  </div>
+                  <h3>${f.title}</h3>
+                  `;
+          }
+
+          featuresContent.appendChild(featureCard);
+      });
+
+      // // Add event listeners to login buttons
+      // document.querySelectorAll(".login-btn").forEach((button) => {
+      //     button.addEventListener("click", () => {
+      //         window.location.href = "http://127.0.0.1:8000/accounts/login/";
+      //     });
+      // });
+  };
+});
+
 
 const displayTestimonial = () => {
-  const html = `<span class="quote-icon">
+  const html = 
+  `<span class="quote-icon">
    <img src="${staticUrl}images/quote-icon.svg" alt="" />
 </span>
 
@@ -145,7 +167,8 @@ const displayTestimonial = () => {
     <div class="name">${testimonialsList[currentTestimonialIndex].name}</div>
     <div class="designation">${testimonialsList[currentTestimonialIndex].designation}</div>
   </div>
-</div>`;
+</div>`
+;
 
   testimonialCard.innerHTML = html;
   testimonialCard.classList.add("active");

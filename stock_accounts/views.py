@@ -212,3 +212,7 @@ def reset_password(request, uidb64, token):
     except Exception as e:
         return render(request, 'new_password.html')
 
+
+
+def check_authentication(request):
+    return JsonResponse({"is_authenticated": request.user.is_authenticated})

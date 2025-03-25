@@ -23,7 +23,6 @@ from stock_accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/', admin.site.urls),
     path('', views.dashboard, name='dashboard'),
     path('accounts/', include("stock_accounts.urls")),
     path('currency/', include("stock_currency.urls")),
@@ -36,3 +35,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
