@@ -1,5 +1,3 @@
-{% comment %} this is a index file {% endcomment %}
-
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
@@ -52,37 +50,49 @@
             </ul>
             <img src="{% static 'images/icons8-user-100.png' %}" alt="User Icon" class="user-icon">      
         </div>
-    {% endif %}
 
-
-    <div class="container">
-      <div class="loader">
-        <div class="right" style="padding-left: 50px;">
-          <img src="{% static 'images/stockoverflow logo.png' %}" alt="" />
+        <div class="container">
+          <div class="loader">
+            <div class="right" style="padding-left: 50px;">
+              <img src="{% static 'images/stockoverflow logo.png' %}" alt="" />
+            </div>
+          </div>
+          <div class="left" style="padding-left: 70px;">
+            <h1>StockOverflow</h1>
+            <p>
+              Begin your journey to Financial Freedom.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="left" style="padding-left: 70px;">
-        <h1>StockOverflow</h1>
-        <p>
-          Login or Register now to Begin your journey to Financial Freedom.
-        </p>
-      </div>
-    </div>
+      {% else %}
+        <div class="container" style="transform: translateX(-10%);">
+          <div class="loader">
+            <div class="right" >
+              <img src="{% static 'images/stockoverflow logo.png' %}" alt="" />
+            </div>
+          </div>
+          <div class="left" style="padding-left: 20px;">
+            <h1>StockOverflow</h1>
+            <p>
+              Begin your journey to Financial Freedom.
+            </p>
+          </div>
+        </div>
+    {% endif %}
+    
   </header>
 
   <div class="container">
     <section id="featured">
       <h2>Making financial freedom accesible to all.</h2>
-
     </section>
 
 
     <section id="features">
       <h2>Features</h2>
+        <div class="content">
 
-      <div class="content">
-
-      </div>
+        </div>
 
     </section>
 
@@ -142,6 +152,19 @@
     <section id="pricing">
       <h2>Our Team</h2>
       <div class="content">
+        <!-- <div class="plan">
+            <h4 class="plan-name">Basic</h4>
+            <ul class="plan-features">
+              <li>50 Tasks</li>
+              <li>Deadline Tracking</li>
+              <li>Priority Settings</li>
+              <li>Basic Reporting</li>
+              <li>Email Notifications</li>
+              <li>24/7 Customer Support</li>
+            </ul>
+            <div class="plan-price">Free</div>
+            <a href="#" class="btn">Choose</a>
+          </div> -->
       </div>
     </section>
 

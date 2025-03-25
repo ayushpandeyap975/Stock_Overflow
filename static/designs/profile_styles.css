@@ -21,16 +21,6 @@ header span {
     color: blue;
 } */
 
-:root {
-    --primary-color: #8300b6;
-    --primary-light: rgba(108, 92, 231, 0.1);
-    --primary-dark: #9b00b6;
-    --success-color: #28A745;
-    --danger-color: #DC3545;
-    --warning-color: #FFC107;
-    --info-color: #17A2B8;
-}
-
 .profile-container {
     display: flex;
     gap: 20px;
@@ -93,7 +83,7 @@ header span {
 }
 
 .delete-btn {
-    background-color: #DC3545;
+    background-color: red;
     color: white;
 }
 
@@ -114,10 +104,10 @@ header span {
     border-radius: 5px;
 }
 
-.profile-container .save-btn {
+.save-btn {
     margin-top: 15px;
     padding: 10px;
-    background: var(--primary-color) !important;
+    background: rgb(136 3 227 / 96%);
     color: white;
     border: none;
     cursor: pointer;
@@ -130,23 +120,23 @@ header span {
 .sidebar ul li {
     margin: 10px 0;
 }
-.profile-container .sidebar ul li a {
+.sidebar ul li a {
     display: block;
     padding: 10px;
-    background-color: var(--primary-color) !important;
+    background-color: rgb(136 3 227 / 96%);
     color: white;
     text-decoration: none;
     border-radius: 5px;
     text-align: center;
     transition: background-color 0.3s;
 }
-.profile-container .sidebar ul li a:hover {
-    background-color: var(--primary-dark) !important;
+.sidebar ul li a:hover {
+    background-color: #a640da;
 }
-.profile-container .save-btn, .upload-btn, .delete-btn {
+.save-btn, .upload-btn, .delete-btn {
     display: inline-block;
     padding: 10px 15px;
-    background-color: var(--primary-color) !important;
+    background-color: rgb(136 3 227 / 96%);
     color: white;
     border: none;
     border-radius: 5px;
@@ -154,8 +144,8 @@ header span {
     transition: background-color 0.3s;
     margin-top: 10px;
 }
-.profile-container .save-btn:hover, .upload-btn:hover, .delete-btn:hover {
-    background-color: var(--primary-dark) !important;
+.save-btn:hover, .upload-btn:hover, .delete-btn:hover {
+    background-color: #a640da;
 }
 .delete-btn {
     background-color: #dc3545;

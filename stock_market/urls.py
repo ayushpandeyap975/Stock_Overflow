@@ -16,8 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from stock_market.views import *
+
+app_name = "market" 
 
 urlpatterns = [
-
+    path('market_update/', market_update, name='market_update'),
+    path('stock_analysis/', stock_analysis, name='stock_analysis'),
 
 ]

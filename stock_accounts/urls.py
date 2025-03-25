@@ -27,4 +27,6 @@ urlpatterns = [
     path('update_profile/', update_profile, name='update_profile'),
     path('forgot_password/', forgot_password, name='forgot_password'),
     path('reset-password/<uidb64>/<token>/', reset_password, name='reset_password'),
+    path("auth_status/", check_authentication, name="auth_status"),
+
 ]

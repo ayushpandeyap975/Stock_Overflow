@@ -1,8 +1,11 @@
 {% extends "base.html" %} 
-{% load static %}
+{% load static %} 
  
 {% block content %}
-    <link rel="stylesheet" href="{% static 'designs/profile_styles.css' %}">
+<style>
+  
+</style>
+        <link rel="stylesheet" href="{% static 'designs/profile_styles.css' %}">
         <div class="profile-container">
             <aside class="sidebar">
                 <ul>
@@ -96,5 +99,7 @@
                 document.getElementById('about-form').style.display = 'none';
                 document.getElementById(section).style.display = 'block';
             }
+
+            
         </script>
-{% endblock %}
+        {% endblock %}
