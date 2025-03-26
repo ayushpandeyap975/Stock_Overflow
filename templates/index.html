@@ -12,211 +12,210 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{% static 'designs/style-main.css' %}" />
   <link rel="icon" type="image/png" href="{% static 'images\stockoverflow logo.png' %}">
-  <link href="designs/burger.css" rel="stylesheet">
-  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body style="font-family: Poppins, sans-serif;">
-  <nav>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-    {% endif %}
-    <div class="nav-items">
-      {% if request.user.first_name or request.user.last_name %}
-      <a class="logo">Welcome  {{request.user.first_name}}  {{request.user.last_name}} </a>
-      {% else %}
-      <a href="{% url 'login' %}" class="logo" style="text-decoration:none;">Login</a>
-      {% endif %}
-      <div class="nav-inner" style="display:inline-flex;">
-        <table>
-          <td style="padding:7px; padding-right: 23px;"><a class="nav-link" href="#features">Features</a></td>
-          <td><a class="nav-link" href="#cta">About Us</a></td>
-        </table>
-      </div>
-    </div>
-  </nav>
+    <nav>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="nav-items">
+            {% if request.user.first_name or request.user.last_name %}
+                <a class="logo">Welcome  {{request.user.first_name}}  {{request.user.last_name}} </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="logo" style="text-decoration:none;">Login</a>
+            {% endif %}
+            <div class="nav-inner" style="display:inline-flex;">
+                <table>
+                    <td style="padding:7px; padding-right: 23px;"><a class="nav-link" href="#features">Features</a></td>
+                    <td><a class="nav-link" href="#cta">About Us</a></td>
+                </table>
+            </div>
+        </div>
+    </nav>
   
-  <header>
-    {% if request.user.is_authenticated %}
-        <div class="profile-btn" style="float: right;">
-            <ul style="list-style-type: none; display:flex;">
-                <li><a class="dropdown-item" href="{% url 'profile' %}" class="profile-btn" style="padding-right: 15px;">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}" class="profile-btn logout-btn" style="padding-right: 15px;">Logout</a></li>
-            </ul>
-            <img src="{% static 'images/icons8-user-100.png' %}" alt="User Icon" class="user-icon">      
-        </div>
-
-        <div class="container">
-          <div class="loader">
-            <div class="right" style="padding-left: 50px;">
-              <img src="{% static 'images/stockoverflow logo.png' %}" alt="" />
-            </div>
+    <header style="background-image: url('{% static 'images\so-bg2.jpg' %}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+      {% if request.user.is_authenticated %}
+          <div class="profile-btn" style="float: right;">
+              <ul style="list-style-type: none; display:flex;">
+                  <li><a class="dropdown-item" href="{% url 'profile' %}" class="profile-btn" style="padding-right: 15px; color:white;">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}" class="profile-btn logout-btn" style="padding-right: 15px; color:white;">Logout</a></li>
+              </ul>
+              <img src="{% static 'images/icons8-user-100.png' %}" alt="User Icon" class="user-icon">      
           </div>
-          <div class="left" style="padding-left: 70px;">
-            <h1>StockOverflow</h1>
-            <p>
-              Begin your journey to Financial Freedom.
-            </p>
-          </div>
-        </div>
-      {% else %}
-        <div class="container" style="transform: translateX(-10%);">
-          <div class="loader">
-            <div class="right" >
-              <img src="{% static 'images/stockoverflow logo.png' %}" alt="" />
-            </div>
-          </div>
-          <div class="left" style="padding-left: 20px;">
-            <h1>StockOverflow</h1>
-            <p>
-              Begin your journey to Financial Freedom.
-            </p>
-          </div>
-        </div>
-    {% endif %}
-    
-  </header>
 
-  <div class="container">
-    <section id="featured">
-      <h2>Making financial freedom accesible to all.</h2>
-    </section>
-
-
-    <section id="features">
-      <h2>Features</h2>
-        <div class="content">
-
-        </div>
-
-    </section>
-
-    <section id="testimonials">
-      <div class="content">
-        <div class="left">
-          <h2>What our customers say about the platform</h2>
-        </div>
-
-        <div class="right">
-          <div class="testimonial-card">
-            <span class="quote-icon">
-              <img src="{% static 'images/quote-icon.svg' %}" alt="" />
-            </span>
-
-            <p class="review">
-              Since I started using the Stockoverflow Wwbsite, my productivity has skyrocketed.
-              The Risk assesment feature is very useful. Highly recommended!
-            </p>
-
-            <div class="reviewer-info">
-              <div class="image">
-                <img src="{% static 'images/testimonial1.png' %}" alt="" />
-              </div>
-
-              <div class="details">
-                <div class="name">John Smith</div>
-                <div class="designation">Groww , CEO</div>
+          <div class="container">
+            <div class="loader">
+              <div class="right" style="padding-left: 50px;">
+                <img src="{% static 'images/new-so.png' %}" alt="" />
               </div>
             </div>
+            <div class="left" style="padding-left: 70px;">
+              <h1>StockOverflow</h1>
+              <p>
+                Begin your journey to Financial Freedom.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
+        {% else %}
+          <div class="container" style="transform: translateX(-10%);">
+            <div class="loader">
+              <div class="right" >
+                <img src="{% static 'images/new-so.png' %}" alt="" />
+              </div>
+            </div>
+            <div class="left" style="padding-left: 20px;">
+              <h1>StockOverflow</h1>
+              <p>
+                Begin your journey to Financial Freedom.
+              </p>
+            </div>
+          </div>
+      {% endif %}
+      
+    </header>
 
-      <div class="navigation-btns">
-        <div class="prev-btn">
-          <img src="{% static 'images/chevron-left.svg' %}" alt="" />
-        </div>
-        <div class="next-btn">
-          <img src="{% static 'images/chevron-right.svg' %}" alt="" />
-        </div>
-      </div>
-
-      <span class="bg-element"></span>
-    </section>
-
-    <section id="cta">
-      <h2>Our Mission</h2>
-      <div class="content">
-        <p>
-          Our mission is to give the best stock analyzer and and provide a easy enviorment to all the investors by which
-          handling their stocks will be very easy
-        </p>
-      </div>
-    </section>
-
-    <section id="pricing">
-      <h2>Our Team</h2>
-      <div class="content">
-        <!-- <div class="plan">
-            <h4 class="plan-name">Basic</h4>
-            <ul class="plan-features">
-              <li>50 Tasks</li>
-              <li>Deadline Tracking</li>
-              <li>Priority Settings</li>
-              <li>Basic Reporting</li>
-              <li>Email Notifications</li>
-              <li>24/7 Customer Support</li>
-            </ul>
-            <div class="plan-price">Free</div>
-            <a href="#" class="btn">Choose</a>
-          </div> -->
-      </div>
-    </section>
-
-  </div>
-
-  <footer>
     <div class="container">
-      <div class="content">
-        <div class="left">
-          <div class="logo">StockOverflow</div>
-          <p>Most relevant platform for learning concepts and growing financially.</p>
-        </div>
+      <section id="featured">
+        <h2>Making financial freedom accesible to all.</h2>
+      </section>
 
-        <div class="right">
-          <div class="links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li>
-                <a href="#">About Us</a>
-              </li>
 
-              <li>
-                <a href="#">Privacy Policy</a>
-              </li>
+      <section id="features">
+        <h2>Features</h2>
+          <div class="content">
 
-              <li>
-                <a href="#">Terms & Conditions</a>
-              </li>
-            </ul>
           </div>
 
-          <div class="links">
-            <h3>Contact Us</h3>
-            <ul>
-              <li>+1 (555) 123-4567</li>
-              <li>contact@example.com</li>
-              <li>123 Main Street, City, State, ZIP</li>
-            </ul>
+      </section>
+
+      <section id="testimonials">
+        <div class="content">
+          <div class="left">
+            <h2>What our customers say about the platform</h2>
+          </div>
+
+          <div class="right">
+            <div class="testimonial-card">
+              <span class="quote-icon">
+                <img src="{% static 'images/quote-icon.svg' %}" alt="" />
+              </span>
+
+              <p class="review">
+                Since I started using the Stockoverflow Wwbsite, my productivity has skyrocketed.
+                The Risk assesment feature is very useful. Highly recommended!
+              </p>
+
+              <div class="reviewer-info">
+                <div class="image">
+                  <img src="{% static 'images/testimonial1.png' %}" alt="" />
+                </div>
+
+                <div class="details">
+                  <div class="name">John Smith</div>
+                  <div class="designation">Groww , CEO</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="copyright">
-        <p>Team Synapse © 2025</p>
-        <div class="socials">
-          <a href="#"><img src="{% static 'images/facebook-logo.svg' %}" alt="Facebook" /></a>
-          <a href="#"><img src="{% static 'images/instagram-logo.svg' %}" alt="Instagram" /></a>
-          <a href="#"><img src="{% static 'images/twitter-logo.svg' %}" alt="Twitter" /></a>
-
+        <div class="navigation-btns">
+          <div class="prev-btn">
+            <img src="{% static 'images/chevron-left.svg' %}" alt="" />
+          </div>
+          <div class="next-btn">
+            <img src="{% static 'images/chevron-right.svg' %}" alt="" />
+          </div>
         </div>
-      </div>
+
+        <span class="bg-element"></span>
+      </section>
+
+      <section id="cta">
+        <h2 style="color:#fff;">Our Mission</h2>
+        <div class="content">
+          <p style="color:#fff;">
+            Our mission is to give the best stock analyzer and and provide a easy enviorment to all the investors by which
+            handling their stocks will be very easy
+          </p>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <h2 style="color:#fff;">Our Team</h2>
+        <br>
+        <div class="content">
+          <!-- <div class="plan">
+              <h4 class="plan-name">Basic</h4>
+              <ul class="plan-features">
+                <li>50 Tasks</li>
+                <li>Deadline Tracking</li>
+                <li>Priority Settings</li>
+                <li>Basic Reporting</li>
+                <li>Email Notifications</li>
+                <li>24/7 Customer Support</li>
+              </ul>
+              <div class="plan-price">Free</div>
+              <a href="#" class="btn">Choose</a>
+            </div> -->
+        </div>
+      </section>
+
     </div>
+
+    <footer>
+      <div class="container">
+        <div class="content">
+          <div class="left">
+            <div class="logo">StockOverflow</div>
+            <p>Most relevant platform for learning concepts and growing financially.</p>
+          </div>
+
+          <div class="right">
+            <div class="links">
+              <h3>Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="#">About Us</a>
+                </li>
+
+                <li>
+                  <a href="#">Privacy Policy</a>
+                </li>
+
+                <li>
+                  <a href="#">Terms & Conditions</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="links">
+              <h3>Contact Us</h3>
+              <ul>
+                <li>+1 (555) 123-4567</li>
+                <li>contact@example.com</li>
+                <li>123 Main Street, City, State, ZIP</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>Team Synapse © 2025</p>
+          <div class="socials">
+            <a href="#"><img src="{% static 'images/facebook-logo.svg' %}" alt="Facebook" /></a>
+            <a href="#"><img src="{% static 'images/instagram-logo.svg' %}" alt="Instagram" /></a>
+            <a href="#"><img src="{% static 'images/twitter-logo.svg' %}" alt="Twitter" /></a>
+
+          </div>
+        </div>
+      </div>
   </footer>
 
   <script>

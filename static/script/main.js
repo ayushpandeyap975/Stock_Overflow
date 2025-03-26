@@ -54,7 +54,7 @@ const plans = [
   {
     name: "Krish Sandhu",
     features: [
-      "Front-End Developer",
+      "",
     ],
     price: "",
     link: "https://www.linkedin.com/in/krish-sandhu-6778a2229/",
@@ -63,7 +63,7 @@ const plans = [
   {
     name: "Arnav Bhardwaj",
     features: [
-      "Front-End Developer",
+      "",
     ],
     price: "",
     link: "https://www.linkedin.com/in/arnav-bhardwaj-448a21316/",
@@ -72,7 +72,7 @@ const plans = [
   {
     name: "Shreya Yadav",
     features: [
-      "Back-End Developer",
+      "",
     ],
     price: "",
     link: "https://www.linkedin.com/in/shreya-yadav-918b01323/",
@@ -81,7 +81,7 @@ const plans = [
   {
     name: "Ayush Pandey",
     features: [
-      "Back-End Developer",
+      "",
     ],
     price: "",
     link: "https://www.linkedin.com/in/ayush-pandey-9a3a4a2ba/",
@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <img src="${f.icon}" alt="img" height="65px" width="65px" />
                   </div>
                   <h3>${f.title}</h3>
+                  <p>Login to Access</p>
                   `;
           }
 
@@ -210,11 +211,12 @@ const displayPricing = () => {
       .join("");
 
     const html = `<h4 class="plan-name">${p.name}</h4>
-    <ul class="plan-features">
-      ${featuresHTML}
-    </ul>
     <div class="plan-price">${p.price}</div>
     <a href="${p.link}" class="btn">LinkedIn</a>`;
+
+    // // <ul class="plan-features">
+    //   ${featuresHTML}
+    // </ul>
 
     const plan = document.createElement("div");
     plan.classList.add("plan");

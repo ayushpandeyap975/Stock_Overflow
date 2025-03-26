@@ -1,3 +1,5 @@
+/* #4ec1ff */
+
 * {
   box-sizing: border-box;
 }
@@ -9,7 +11,7 @@ html {
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: #f5f4f4;
+  background: #000;
 }
 
 p {
@@ -25,9 +27,8 @@ a {
 nav {
   position: fixed;
   top: 30px;
-  background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(255, 254, 254, 0.4) 100%);
+  /* background: #00A6A6; */
+  background: linear-gradient(135deg, #36c4cb 0%, #3d98c9 100%);
   backdrop-filter: blur(10px);
   width: 900px;
   left: 50%;
@@ -44,7 +45,7 @@ nav {
 nav .logo {
   font-weight: bold;
   font-size: 18px;
-  color: #8300b6;
+  color: #000;
 }
 
 nav .nav-items {
@@ -61,38 +62,13 @@ nav .nav-items {
 }
 
 
-/* animation */
-.loader {
-  --s: 50px;
-
-  /* --_d: calc(0.353*var(--s)); */
-  width: calc(var(--s) + var(--_d));
-  aspect-ratio: 1;
-  display: grid;
-  filter: drop-shadow(0 0 0 #fff);
-  animation: l2 0.8s infinite;
-}
-
-.loader:before {
-  content: "";
-  clip-path: polygon(var(--_d) 0, 100% 0, 100% calc(100% - var(--_d)), calc(100% - var(--_d)) 100%, 0 100%, 0 var(--_d));
-  background:
-    conic-gradient(from -90deg at var(--s) var(--_d),
-      #fff 135deg, #666 0 270deg, #aaa 0);
-}
-
-@keyframes l2 {
-  50% {
-    filter: drop-shadow(0 0 5px #fff)
-  }
-}
-
 /* Header */
 header {
   height: 100vh;
   min-height: 600px;
   max-height: 800px;
-  background: linear-gradient(90deg, #c2cefe 0%, #f7a3fe 100%);
+  background: linear-gradient(120deg, #4f4f52 0%, #07070b 100%);
+  /* background: #000; */
 }
 
 header .container {
@@ -110,14 +86,14 @@ h1 {
   font-size: 50px;
   line-height: 130%;
   margin: 0;
-  background: linear-gradient(90deg, #230127 0%, #9e08fb 100%);
+  background: linear-gradient(90deg, #26a8af 0%, #64c7fc 100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 header .left p {
-  background: linear-gradient(90deg, #080022 0%, #8300b6 100%);
+  background: linear-gradient(90deg, #26a8af 0%, #64c7fc  100%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -166,14 +142,14 @@ section {
 }
 
 section h2 {
-  color: #8300b6;
+  color: #000000;
   text-align: center;
   margin: 0;
   margin-bottom: 16px;
 }
 
 #featured {
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 5px 55px -15px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding-top: 30px;
@@ -202,7 +178,8 @@ section h2 {
   height: 60px;
   width: 60px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #fee3e0 0%, #fee9e6 100%);
+  /* background: linear-gradient(90deg, #fee3e0 0%, #fee9e6 100%); */
+  background: linear-gradient(90deg, #d3faff 0%, #d1efff 100%);
   display: grid;
   place-items: center;
 }
@@ -211,6 +188,7 @@ section h2 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 24px;
+  transition: all 200ms ease;
 }
 
 #features .feature-card:hover {
@@ -295,8 +273,9 @@ section h2 {
   left: -50px;
   right: -50px;
   bottom: 0;
-  background: linear-gradient(90deg, #fdd7e8 0%, #fee5fa 100%);
+  background: linear-gradient(270deg, #d3faff 0%, #9bc4da 100%);
   z-index: -1;
+  border-radius: 20px;
 }
 
 #testimonials .navigation-btns {
@@ -368,8 +347,8 @@ section h2 {
 }
 
 #pricing .btn {
-  background: #000;
-  color: #fff;
+  background: linear-gradient(225deg, #36c4cb 0%, #3d98c9 100%);
+  color: #000000; 
   padding: 8px 32px;
   width: 100%;
   margin-top: 24px;
@@ -406,7 +385,7 @@ section h2 {
 /* Footer */
 
 footer {
-  background: linear-gradient(90deg, #0a1300 0%, #001e0f 100%);
+  background: linear-gradient(0deg, #000228 0%, #000000 100%);
   color: #fff;
   padding-top: 50px;
 }

@@ -3,20 +3,16 @@
 
 {% block content %}
 <link href="{% static 'designs/stockeye.css' %}" rel="stylesheet">
-
-<div class="card">
-    <div class="card-body">
-        <h2 class="section-title">
-            <img src="{% static 'images/chatbot.svg' %}" alt="Stock Eye Logo" width="100" height="100">
-            Stock EYE - Your Financial Helper
-        </h2>
-
+<br>
+<div class="card" style="max-width: 75%; transform: translateX(18%)">
+    <div class="card-body" >
+        
         <div class="chat-container">
             <!-- Chat Header -->
             <div class="chat-header">
                 <div class="header-left">
                     <div class="avatar">
-                        <img src="{% static 'images/chatbot.svg' %}" alt="Stock Eye Avatar" width="50" height="50">
+                        <img src="{% static 'images/chatbot.png' %}" alt="Stock Eye Avatar" width="50" height="50">
                     </div>
                     <div>
                         <div class="header-title">Stock Eye</div>
@@ -26,11 +22,11 @@
             </div>
 
             <!-- Chat Messages -->
-            <div class="chat-messages" id="chatMessages">
+            <div class="chat-messages" id="chatMessages"  style="background-image: url('{% static 'images\so-bg2.jpg' %}'); background-repeat: no-repeat;  background-size: cover;">
                 <!-- Default bot greeting message -->
                 <div class="message bot-message">
                     <div class="avatar">
-                        <img src="{% static 'images/chatbot.svg' %}" alt="Chatbot">
+                        <img src="{% static 'images/chatbot.png' %}" alt="Chatbot">
                     </div>
                     <div class="message-content">Hello! StockEye here. How can I help you?</div>
                 </div>
@@ -90,7 +86,7 @@
             let avatarDiv = document.createElement("div");
             avatarDiv.classList.add("avatar");
             let img = document.createElement("img");
-            img.src = "{% static 'images/chatbot.svg' %}";
+            img.src = "{% static 'images/chatbot.png' %}";
             img.alt = "Chatbot";
             avatarDiv.appendChild(img);
             messageDiv.appendChild(avatarDiv);
@@ -105,7 +101,6 @@
         // Scroll to the bottom
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-    
 </script>
 
 {% endblock %}
