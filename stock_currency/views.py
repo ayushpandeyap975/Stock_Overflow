@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect
 
 def currency(request):
     try:
-        breakpoint()
         return render(request,'Currency.html' )
     except Exception as e:
         print(e)

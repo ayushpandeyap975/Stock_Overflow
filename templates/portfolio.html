@@ -159,7 +159,7 @@
                                 <!-- Stock Graph -->
                                 <div class="stat-card">
                                     <img src="{{ i.graph_path.url }}" alt="Stock Graph" class="stock-graph">
-                                    <div class="stat-label">Stock Graph</div>
+                                    {% comment %} <div class="stat-label">Stock Graph</div> {% endcomment %}
                                 </div>
                 
                                 <!-- Price Operations -->
@@ -168,32 +168,24 @@
                                     
                                     <!-- Percentage Change Calculator -->
                                     <label>Calculate % Change from Current Price:</label>
-                                    <input type="number" id="targetPrice" placeholder="Enter target price">
+                                    <input type="number" id="targetPrice" placeholder="Enter target price"><br>
                                     <button onclick="calculatePercentage()" class="btn btn-primary mt-3" style="background-color:#8300b6;">Calculate</button>
                                     <p id="percentageResult"></p>
+                                    <br>
                 
                                     <!-- Investment Growth Calculator -->
-                                    <label>Investment Growth Calculator:</label>
-                                    <input type="number" id="investmentAmount" placeholder="Enter investment amount">
+                                    <label>Investment Growth Calculator:</label><br>
+                                    <input type="number" id="investmentAmount" placeholder="Enter investment amount"><br>
                                     <button onclick="calculateFutureValue()" class="btn btn-primary mt-3" style="background-color:#8300b6;">Calculate Growth</button>
                                     <p id="investmentResult"></p>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
-                
-                        <!-- Navigation Buttons -->
-                        <div class="nav-buttons">
-                            <button onclick="prevStock()"  class="btn btn-primary mt-3">Previous</button>
-                            <button onclick="nextStock()" class="btn btn-primary mt-3">Next</button>
-                        </div>
                     </div>
                 </div>
         </div>
     </div>
 </div>
-
 <script src="{% static 'script/stock.js' %}"></script>
-
-
 {% endblock %}

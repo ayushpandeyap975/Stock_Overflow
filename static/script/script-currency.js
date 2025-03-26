@@ -14,18 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     // Exchange rates (relative to USD)
-    const exchangeRates = {
-        'USD': 1.00,
-        'EUR': 0.85,
-        'GBP': 0.73,
-        'JPY': 110.45,
-        'CAD': 1.25,
-        'AUD': 1.35,
-        'CHF': 0.92,
-        'CNY': 6.45,
-        'INR': 74.50,
-        'BRL': 5.20
-    };
+const exchangeRates = {
+    'USD': 1.00,
+    'EUR': 0.92,
+    'GBP': 0.77,
+    'JPY': 149.80,
+    'CAD': 1.43,
+    'AUD': 1.59,
+    'CHF': 0.88,
+    'CNY': 7.25,
+    'INR': 85.60,
+    'BRL': 5.70
+};
 
     // Elements
     const fromCurrency = document.getElementById('fromCurrency');

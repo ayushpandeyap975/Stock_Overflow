@@ -8,7 +8,7 @@ const featuresList = [
   {
     icon: staticUrl + "images/chatbot.png", 
     title: "StockEye Assistant", 
-    link: "",
+    link: "http://127.0.0.1:8000/market/stockai/",
   },
 
   {

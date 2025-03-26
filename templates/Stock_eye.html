@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'designs/stockeye.css' %}" rel="stylesheet">
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="section-title">
+            <img src="{% static 'images/chatbot.svg' %}" alt="Stock Eye Logo" width="100" height="100">
+            Stock EYE - Your Financial Helper
+        </h2>
+
+        <div class="chat-container">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="header-left">
+                    <div class="avatar">
+                        <img src="{% static 'images/chatbot.svg' %}" alt="Stock Eye Avatar" width="50" height="50">
+                    </div>
+                    <div>
+                        <div class="header-title">Stock Eye</div>
+                        <div class="header-subtitle">Your own financial helper</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- Default bot greeting message -->
+                <div class="message bot-message">
+                    <div class="avatar">
+                        <img src="{% static 'images/chatbot.svg' %}" alt="Chatbot">
+                    </div>
+                    <div class="message-content">Hello! StockEye here. How can I help you?</div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input">
+                {% csrf_token %}
+                <input type="text" class="message-input" placeholder="Type a message..." id="messageInput">
+                <button class="send-button" id="sendButton">SEND</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Chat Interaction -->
+<script>
+    document.getElementById("sendButton").addEventListener("click", function () {
+        let inputField = document.getElementById("messageInput");
+        let messageText = inputField.value.trim();
+    
+        if (messageText !== "") {
+            addMessage(messageText, "user"); // Show user message
+            inputField.value = "";
+    
+            // Perform AJAX request to backend API
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/market/chat_bot/", // Update to your Django API endpoint
+                data: {
+                    message: messageText,
+                    csrfmiddlewaretoken: "{{ csrf_token }}" // Include CSRF token for Django security
+                },
+                success: function (response) {
+                    if (response && response.response) {
+                        addMessage(response.response, "bot"); // Display bot response
+                    } else {
+                        addMessage("Sorry, I couldn't understand that.", "bot");
+                    }
+                },
+                error: function () {
+                    addMessage("Oops! Something went wrong. Please try again later.", "bot");
+                }
+            });
+        }
+    });
+    
+    function addMessage(text, sender) {
+        let chatBox = document.getElementById("chatMessages");
+        let messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+    
+        if (sender === "user") {
+            messageDiv.classList.add("user-message");
+        } else {
+            messageDiv.classList.add("bot-message");
+            let avatarDiv = document.createElement("div");
+            avatarDiv.classList.add("avatar");
+            let img = document.createElement("img");
+            img.src = "{% static 'images/chatbot.svg' %}";
+            img.alt = "Chatbot";
+            avatarDiv.appendChild(img);
+            messageDiv.appendChild(avatarDiv);
+        }
+    
+        let textDiv = document.createElement("div");
+        textDiv.classList.add("message-content");
+        textDiv.textContent = text;
+        messageDiv.appendChild(textDiv);
+        chatBox.appendChild(messageDiv);
+    
+        // Scroll to the bottom
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+    
+</script>
+
+{% endblock %}
