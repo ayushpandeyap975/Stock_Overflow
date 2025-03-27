@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     "stock_currency",
     "stock_market",
     "stock_portfolio",
-    "stock_risk",
-    "stock_tax",
     "crispy_forms",
 ]
 

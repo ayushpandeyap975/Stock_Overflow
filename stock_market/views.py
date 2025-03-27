@@ -165,7 +165,7 @@ def generate(user_input):
             types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="OFF"),
             types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="OFF")
         ],
-        system_instruction=[types.Part.from_text(text="answer should be within 200 words")],
+        system_instruction=[types.Part.from_text(text="Answer only finance, tax and investment related questions. Do not display any disclaimers like, 'I am a chatbot. Seek professional advice.' The answer should be in a single paragraph with no subtitles or subheadings.")],
     )
 
     generated_text = "" 

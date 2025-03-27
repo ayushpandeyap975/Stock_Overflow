@@ -28,8 +28,6 @@ urlpatterns = [
     path('currency/', include("stock_currency.urls")),
     path('market/', include("stock_market.urls")),
     path('portfolio/', include("stock_portfolio.urls")),
-    path('risk/', include("stock_risk.urls")),
-    path('tax/', include("stock_tax.urls")),
 ]
 
 
