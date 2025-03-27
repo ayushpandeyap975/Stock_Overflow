@@ -1,42 +1,45 @@
 # StockOverflow
 
-StockOverflow is a web-based platform designed to provide real-time market updates, risk analysis, and tax calculations for stock market enthusiasts and investors.
+StockOverflow is a web-based platform designed to provide a GEN AI-powered Chatbot called 'StockEye' for all financial-related queries, state-of-the-art stock predictions, and real-time market updates, for stock market enthusiasts and investors.
 
 ## Features
 
-- **Portfolio Analysis**: View the performance of a stock you're interested in by entering its name (portfolio.html).
-- **Risk Assessment**: Enter details regarding your risk preference in investing to find the optimum stock/mutual fund for you (risk.html).
-- **Market Updates**: View real-time sector-wise market updates and news, including top gainers, losers, and most active stocks in the market (market.html).
-- **Tax Calculator**: Educate yourself on tax rules and calculate your tax obligations on investments (tax.html).
-- **Currency Converter**: A simple international currency converter (currency.html).
-
-## File Structure
-
-```
-├── designs/       # Contains CSS files for styling the website
-├── images/        # Contains images used in the website
-├── script/        # Contains JavaScript files for interactivity
-├── index.html     # Landing page with the main logo and title, listing main features
-├── sign.html      # Sign-in and sign-up page
-├── portfolio.html # Portfolio management page to analyze stock performance
-├── risk.html      # Risk analysis page to find optimal investments
-├── market.html    # Market updates page with real-time stock data
-├── tax.html       # Tax education and calculator page
-├── currency.html  # Currency converter page
-└── README.md      # Project documentation
-```
+- **Portfolio Analysis**: View the past & 5-year prediction of the performance of the stock you're interested in by entering.
+- **StockEye**: Gen AI-powered financial assistant made possible through VertexAI.
+- **Market Updates**: View real-time sector-wise market updates and news, including top gainers, losers, and most active stocks in the market.
+- **Currency Converter**: A simple international currency converter.
 
 ## Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/GIT-KrishSandhu/StockOverflow.git
+   git clone https://github.com/ayushpandeyap975/Synapse.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd StockOverflow
+   cd Synapse
    ```
-3. Open `index.html` in a browser to view the site.
+3. Install dependencies as necessary:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Run server locally:
+   ```sh
+   python manage.py runserver
+   ```
+
+## TechStack
+
+* [![Built with HTML, CSS, JS](https://img.shields.io/badge/Built_with-HTML%2C_CSS%2C_JS-blue?logo=html5)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [![Backend: Python](https://img.shields.io/badge/Backend-Python-blue?logo=python)](https://www.python.org/)
+* [![Framework: Django](https://img.shields.io/badge/Framework-Django-green?logo=django)](https://www.djangoproject.com/)
+* [![Database: SQLite3](https://img.shields.io/badge/Database-SQLite3-lightgrey?logo=sqlite)](https://www.sqlite.org/)
+* [![Authentication: OAuth](https://img.shields.io/badge/Authentication-OAuth-yellow?logo=oauth)](https://oauth.net/)
+* [![Google Vertex AI (StockEye)](https://img.shields.io/badge/AI-Google_Vertex_AI-orange?logo=googlecloud)](https://cloud.google.com/vertex-ai)
+* [![Google reCAPTCHA](https://img.shields.io/badge/Security-Google_reCAPTCHA-red?logo=google)](https://www.google.com/recaptcha/about/)
+
+
+Happy Investing from Team Synapse!  
 
 ## Contributors
 
