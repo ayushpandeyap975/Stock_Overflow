@@ -1,5 +1,6 @@
 import io
 import os
+import re
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -14,6 +15,7 @@ from .models import Stock
 from django.shortcuts import render, redirect
 from google import genai
 from google.genai import types
+
 import base64
 
 def format_symbol(symbol):
@@ -145,14 +147,12 @@ def stockai(request):
 
 
 def generate(user_input):
-    client = genai.Client(
-        vertexai=True,
-        project="stockoverflow-gdg",
-        location="us-central1",
-    )
+    client = genai.Client(api_key= "AIzaSyBYWJirDnK0e-i0lI1gG5Q_ZChY-tMViJE")  # Use API key instead of Vertex AI
 
     model = "gemini-2.0-flash-001"
     contents = [user_input]
+
+
     
     generate_content_config = types.GenerateContentConfig(
         temperature=1,
