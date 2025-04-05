@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<!-- JavaScript for Chat Interaction -->
+{% comment %} <!-- JavaScript for Chat Interaction -->
 <script>
     document.getElementById("sendButton").addEventListener("click", function () {
         let inputField = document.getElementById("messageInput");
@@ -101,6 +101,118 @@
         // Scroll to the bottom
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-</script>
+</script> {% endcomment %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let inputField = document.getElementById("messageInput");
+        let sendButton = document.getElementById("sendButton");
+        let chatBox = document.getElementById("chatMessages");
+    
+        // Send message on button click
+        sendButton.addEventListener("click", sendMessage);
+    
+        // Send message when Enter is pressed (without Shift)
+        inputField.addEventListener("keypress", function (event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault(); // Prevents new line in input
+                sendMessage();
+            }
+        });
+    
+        function sendMessage() {
+            let messageText = inputField.value.trim();
+    
+            if (messageText !== "") {
+                addMessage(messageText, "user"); // Show user message
+                inputField.value = "";
+    
+                // Show "AI is typing..." message
+                let typingMessage = addMessage("AI is generating a response...", "bot", true);
+    
+                // Perform AJAX request to backend API
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/market/chat_bot/", // Django API endpoint
+                    data: {
+                        message: messageText,
+                        csrfmiddlewaretoken: "{{ csrf_token }}" // CSRF token
+                    },
+                    success: function (response) {
+                        removeTyping(typingMessage); // Remove typing indicator
+                        if (response && response.response) {
+                            animateTyping(response.response, "bot"); // Word-by-word animation
+                        } else {
+                            addMessage("Sorry, I couldn't understand that.", "bot");
+                        }
+                    },
+                    error: function () {
+                        removeTyping(typingMessage);
+                        addMessage("Oops! Something went wrong. Please try again later.", "bot");
+                    }
+                });
+            }
+        }
+    
+        function addMessage(text, sender, isTyping = false) {
+            let messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", sender === "user" ? "user-message" : "bot-message");
+    
+            if (sender === "bot") {
+                let avatarDiv = document.createElement("div");
+                avatarDiv.classList.add("avatar");
+                let img = document.createElement("img");
+                img.src = "{% static 'images/chatbot.png' %}";
+                img.alt = "Chatbot";
+                avatarDiv.appendChild(img);
+                messageDiv.appendChild(avatarDiv);
+            }
+    
+            let textDiv = document.createElement("div");
+            textDiv.classList.add("message-content");
+            textDiv.textContent = text;
+            messageDiv.appendChild(textDiv);
+            chatBox.appendChild(messageDiv);
+    
+            // Apply animation
+            messageDiv.style.opacity = "0";
+            messageDiv.style.transform = "translateY(10px)";
+            setTimeout(() => {
+                messageDiv.style.opacity = "1";
+                messageDiv.style.transform = "translateY(0)";
+            }, 100);
+    
+            // Scroll to the bottom
+            chatBox.scrollTop = chatBox.scrollHeight;
+    
+            return isTyping ? messageDiv : textDiv; // Return the text container for typing animation
+        }
+    
+        function removeTyping(typingMessage) {
+            if (typingMessage) {
+                typingMessage.remove();
+            }
+        }
+    
+        function animateTyping(text, sender) {
+            let textDiv = addMessage("", sender); // Create an empty message div
+            let words = text.split(" ");
+            let index = 0;
+    
+            function typeWord() {
+                if (index < words.length) {
+                    textDiv.textContent += words[index] + " ";
+                    index++;
+                    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+                    setTimeout(typeWord, 100); // Adjust speed (100ms per word)
+                }
+            }
+    
+            typeWord();
+        }
+    });
+    </script>
+    
 
 {% endblock %}

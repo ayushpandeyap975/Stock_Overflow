@@ -147,7 +147,7 @@ def stockai(request):
 
 
 def generate(user_input):
-    client = genai.Client(api_key= "AIzaSyBYWJirDnK0e-i0lI1gG5Q_ZChY-tMViJE")  # Use API key instead of Vertex AI
+    client = genai.Client(api_key= "AIzaSyBD_4sYWJqmS2sj3kpeBD-hBbV5Z3voamo")  # Use API key instead of Vertex AI
 
     model = "gemini-2.0-flash-001"
     contents = [user_input]
@@ -165,7 +165,7 @@ def generate(user_input):
             types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="OFF"),
             types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="OFF")
         ],
-        system_instruction=[types.Part.from_text(text="Answer only finance, tax and investment related questions. Do not display any disclaimers like, 'I am a chatbot. Seek professional advice.' The answer should be in a single paragraph with no subtitles or subheadings.")],
+        system_instruction=[types.Part.from_text(text="Answer only finance, tax and investment related questions. Do not display any disclaimers like, 'I am a chatbot. Seek professional advice.' ")],
     )
 
     generated_text = "" 
@@ -175,6 +175,7 @@ def generate(user_input):
         config=generate_content_config,
     ):
         generated_text += chunk.text
+    generated_text = generated_text.replace("*", "")
     return generated_text
 
 

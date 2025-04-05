@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser 
@@ -22,9 +23,7 @@ from django.core.mail import send_mail
 
 User = get_user_model()
 
-RECAPTCHA_SECRET_KEY = "your-secret-key-here"  
-
-
+secret_key = "6LcU-wkrAAAAAMq_Fc-2iqwdEm59XDzsxshtQLcT"
 
 
 def send_welcome_email(email, name):
@@ -46,10 +45,26 @@ def send_welcome_email(email, name):
 @csrf_exempt
 def registrations(request):
     try:
+        global secret_key
         if request.method == 'POST':
+            
             name = request.POST.get('name', '').strip()
             email = request.POST.get('email')
             password = request.POST.get('password')
+            clientkey = request.POST.get('g-recaptcha-response')
+
+            captcha_data = {
+                'secret': secret_key,
+                'response': clientkey
+            }
+
+            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=captcha_data)
+            response = r.json()
+            # print(f'Responseeeeeeeee {response}')
+            if not response.get('success'):
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+                return render(request, 'sign.html')
+            
             name_parts = name.split()
             first_name = name_parts[0] if len(name_parts) > 0 else ''
             last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ''
@@ -66,23 +81,37 @@ def registrations(request):
                 return redirect('dashboard') 
         return render(request, 'sign.html')
     except Exception as e:
-        return render(request, 'sign.html')
+        return render(request, 'sign.html' ,  {'error': str(e)})
         
 @csrf_exempt    
 def login_user(request):
     try:
+        global secret_key
         if request.method == 'POST':
-            email = request.POST.get('email')
+            # breakpoint()
+            username = request.POST.get('email')
             password = request.POST.get('password')
-            user = authenticate(request, username=email, password=password)
-            if user:
-                login(request, user)
-                return redirect('dashboard')
-            else:
-                messages.error(request, 'Invalid email or password')
-                return redirect('login')
-        return render(request, 'sign.html')
+            clientkey = request.POST.get('g-recaptcha-response')
 
+            captcha_data = {
+                'secret': secret_key,
+                'response': clientkey
+            }
+
+            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=captcha_data)
+            response = r.json()
+            # print(f'Responseeeeeeeee {response}')
+            if not response.get('success'):
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+                return render(request, 'sign.html')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Login successful!')
+                return redirect('dashboard')  
+            else:
+                messages.error(request, 'Invalid username or password.')
+        return render(request, 'sign.html') 
     except Exception as e:
         return render(request, 'sign.html', {'error': str(e)})
     
