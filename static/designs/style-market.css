@@ -274,6 +274,13 @@ body {
     font-weight: 500;
 }
 
+.loading-msg {
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 1rem;
+    color: #888;
+}
+
 .mover-change {
     font-size: 0.85rem;
     padding: 0.25rem 0.5rem;

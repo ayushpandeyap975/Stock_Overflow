@@ -16,7 +16,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="http://127.0.0.1:8000/">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
                 StockOverflow
             </a>
 
@@ -117,6 +117,9 @@
                                 <path d="M12 12v-2"></path>
                             </svg>
                             Latest Market News
+                            <div class="news-tags">
+                                <span class="news-tag">Live</span>
+                            </div>
                         </h2>
 
                         <div class="news-feed" id="newsFeed">
@@ -215,23 +218,20 @@
 
                 <!-- Gainers Tab -->
                 <div class="movers-content active" id="gainers-tab">
-                    <div class="movers-list" id="gainersList">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
+                    <div class="loading-msg" id="gainersLoading">Loading top gainers...</div>
+                    <div class="movers-list" id="gainersList"></div>
                 </div>
 
                 <!-- Losers Tab -->
                 <div class="movers-content" id="losers-tab">
-                    <div class="movers-list" id="losersList">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
+                    <div class="loading-msg" id="losersLoading">Loading top losers...</div>
+                    <div class="movers-list" id="losersList"></div>
                 </div>
 
                 <!-- Volume Tab -->
                 <div class="movers-content" id="volume-tab">
-                    <div class="movers-list" id="volumeList">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
+                    <div class="loading-msg" id="volumeLoading">Loading most active stocks...</div>
+                    <div class="movers-list" id="volumeList"></div>
                 </div>
             </div>
         </div>
@@ -268,9 +268,10 @@
                 <div class="links">
                     <h3>Contact Us</h3>
                     <ul>
-                    <li>+1 (555) 123-4567</li>
-                    <li>contact@example.com</li>
-                    <li>123 Main Street, City, State, ZIP</li>
+                        <li>+91 958-091-1644</li>
+                        <li>ayush.2428cseai1011@kiet.edu</li>
+                        <li>KIET Group of Institutions, Meerut Road, <br>
+                            Ghaziabad, Uttar Pradesh, 201206</li>
                     </ul>
                 </div>
                 </div>
