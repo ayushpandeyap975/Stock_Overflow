@@ -1,58 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Sample news data
-    const newsData = [
-        {
-            title: "Fed Signals Potential Rate Cut in September Meeting",
-            source: "Financial Times",
-            timestamp: "10 minutes ago",
-            summary: "Federal Reserve officials indicated they may be ready to cut interest rates at their next meeting, citing improving inflation data and concerns about labor market cooling.",
-            tags: ["Federal Reserve", "Interest Rates", "Economy"]
-        },
-        {
-            title: "Tech Stocks Rally as Inflation Fears Ease",
-            source: "Wall Street Journal",
-            timestamp: "32 minutes ago",
-            summary: "Technology shares led a broad market rally after new data showed inflation moderating, potentially easing pressure on the Federal Reserve to maintain high interest rates.",
-            tags: ["Tech Stocks", "Inflation", "Market Rally"]
-        },
-        {
-            title: "Oil Prices Drop on Increased Supply Forecasts",
-            source: "Bloomberg",
-            timestamp: "1 hour ago",
-            summary: "Crude oil prices fell more than 2% after OPEC raised its forecast for non-OPEC supply growth, suggesting a potential oversupply in global markets.",
-            tags: ["Oil", "OPEC", "Commodities"]
-        },
-        {
-            title: "Retail Sales Beat Expectations in July",
-            source: "CNBC",
-            timestamp: "2 hours ago",
-            summary: "U.S. retail sales rose 0.4% in July, exceeding economists' expectations of 0.2%, suggesting consumer spending remains resilient despite inflation pressures.",
-            tags: ["Retail", "Economy", "Consumer Spending"]
-        },
-        {
-            title: "Major Chipmaker Announces $20 Billion Factory Expansion",
-            source: "Reuters",
-            timestamp: "3 hours ago",
-            summary: "A leading semiconductor manufacturer announced plans to invest $20 billion in new production facilities, citing strong demand for AI chips and government incentives.",
-            tags: ["Semiconductors", "Manufacturing", "AI"]
-        },
-        {
-            title: "Housing Starts Fall to Two-Year Low",
-            source: "MarketWatch",
-            timestamp: "4 hours ago",
-            summary: "New home construction dropped to its lowest level in two years as high mortgage rates continue to pressure the housing market, according to Commerce Department data.",
-            tags: ["Housing", "Construction", "Mortgage Rates"]
-        },
-        {
-            title: "European Markets Close Higher on Banking Strength",
-            source: "Financial Times",
-            timestamp: "5 hours ago",
-            summary: "European stock indices finished higher, led by banking stocks after several major institutions reported better-than-expected quarterly earnings.",
-            tags: ["Europe", "Banking", "Earnings"]
+document.addEventListener('DOMContentLoaded', function () {
+    // Fetch real-time news from NewsAPI
+    async function fetchNews() {
+        const accessKey = 'bf72c4656b00950edbe6484d11ee98fa'; // 🔐 Replace with your Mediastack key
+        try {
+            const response = await fetch(`http://api.mediastack.com/v1/news?access_key=${accessKey}&categories=business&languages=en&limit=7`);
+            const data = await response.json();
+    
+            if (data.data) {
+                populateNews(data.data); // Note: Mediastack uses 'data.data'
+            } else {
+                console.error('No news articles found:', data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch news:', error);
         }
-    ];
+    }
+    
 
-    // Sample market movers data
+    // Render fetched news to the DOM
+    function populateNews(articles) {
+        const newsFeed = document.getElementById('newsFeed');
+        newsFeed.innerHTML = '';
+    
+        articles.forEach(article => {
+            const newsItem = document.createElement('div');
+            newsItem.className = 'news-item';
+    
+            newsItem.innerHTML = `
+                <div class="news-title">${article.title}</div>
+                <div class="news-meta">
+                    <span class="news-source">${article.source || 'Unknown Source'}</span>
+                    <span class="news-timestamp">${new Date(article.published_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+                <div class="news-summary">${article.description || 'No summary available.'}</div>
+                <div class="news-tags">
+                    <span class="news-tag">Live</span>
+                </div>
+            `;
+    
+            newsFeed.appendChild(newsItem);
+        });
+    }
+    
+
+    // Call fetchNews on page load
+    fetchNews();
+
+    // Optional: auto-refresh news every 60 seconds
+    setInterval(fetchNews, 60000);
+
+    // Keep your existing static data for market movers and charts
     const gainersData = [
         { symbol: "NVDA", name: "NVIDIA Corporation", price: 437.53, change: 12.34 },
         { symbol: "TSLA", name: "Tesla, Inc.", price: 248.48, change: 5.67 },
@@ -77,45 +74,17 @@ document.addEventListener('DOMContentLoaded', function() {
         { symbol: "AMZN", name: "Amazon.com, Inc.", price: 127.74, change: -2.31, volume: "42.1M" }
     ];
 
-    // Populate news feed
-    const newsFeed = document.getElementById('newsFeed');
-    
-    newsData.forEach(news => {
-        const newsItem = document.createElement('div');
-        newsItem.className = 'news-item';
-        
-        let tagsHTML = '';
-        news.tags.forEach(tag => {
-            tagsHTML += `<span class="news-tag">${tag}</span>`;
-        });
-        
-        newsItem.innerHTML = `
-            <div class="news-title">${news.title}</div>
-            <div class="news-meta">
-                <span class="news-source">${news.source}</span>
-                <span class="news-timestamp">${news.timestamp}</span>
-            </div>
-            <div class="news-summary">${news.summary}</div>
-            <div class="news-tags">
-                ${tagsHTML}
-            </div>
-        `;
-        
-        newsFeed.appendChild(newsItem);
-    });
-
-    // Populate market movers
     function populateMovers(data, containerId) {
         const container = document.getElementById(containerId);
         container.innerHTML = '';
-        
+
         data.forEach(item => {
             const moverCard = document.createElement('div');
             moverCard.className = 'mover-card';
-            
+
             const changeClass = item.change >= 0 ? 'change-up' : 'change-down';
             const changeSymbol = item.change >= 0 ? '+' : '';
-            
+
             moverCard.innerHTML = `
                 <div class="mover-info">
                     <div class="mover-symbol">${item.symbol}</div>
@@ -126,26 +95,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${changeSymbol}${item.change.toFixed(2)}%
                 </div>
             `;
-            
+
             container.appendChild(moverCard);
         });
     }
-    
+
     populateMovers(gainersData, 'gainersList');
     populateMovers(losersData, 'losersList');
     populateMovers(volumeData, 'volumeList');
 
-    // Tab switching for movers
     const moversTabs = document.querySelectorAll('.movers-tab');
     const moversContents = document.querySelectorAll('.movers-content');
-    
+
     moversTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Update active tab
             moversTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            
-            // Show active content
+
             const tabId = tab.getAttribute('data-tab');
             moversContents.forEach(content => {
                 content.classList.remove('active');
@@ -154,29 +120,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialize sector performance chart
     function initializeSectorChart() {
         const ctx = document.getElementById('sectorChart').getContext('2d');
-        
-        // Sample sector data
+
         const sectors = [
-            'Technology', 'Healthcare', 'Financials', 'Consumer Discretionary', 
-            'Communication Services', 'Industrials', 'Consumer Staples', 
+            'Technology', 'Healthcare', 'Financials', 'Consumer Discretionary',
+            'Communication Services', 'Industrials', 'Consumer Staples',
             'Energy', 'Utilities', 'Materials', 'Real Estate'
         ];
-        
+
         const performances = [2.8, 1.5, 0.9, 0.7, 1.2, -0.3, -0.5, -1.2, -0.8, -0.4, -1.5];
-        
-        // Create gradient for bars
+
         const positiveGradient = ctx.createLinearGradient(0, 0, 0, 400);
         positiveGradient.addColorStop(0, 'rgba(40, 167, 69, 0.8)');
         positiveGradient.addColorStop(1, 'rgba(40, 167, 69, 0.2)');
-        
+
         const negativeGradient = ctx.createLinearGradient(0, 0, 0, 400);
         negativeGradient.addColorStop(0, 'rgba(220, 53, 69, 0.8)');
         negativeGradient.addColorStop(1, 'rgba(220, 53, 69, 0.2)');
-        
-        // Create chart
+
         window.sectorChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -198,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                                 let value = context.raw;
                                 return value >= 0 ? `+${value}%` : `${value}%`;
                             }
@@ -216,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             borderDash: [5, 5]
                         },
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return value + '%';
                             }
                         }
@@ -225,34 +187,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Initialize charts
+
     initializeSectorChart();
-    
-    // Auto-update market data
+
     function updateMarketData() {
-        // Simulate real-time updates by slightly changing index values
         const indices = document.querySelectorAll('.index-value');
         const changes = document.querySelectorAll('.index-change');
-        
+
         indices.forEach((index, i) => {
-            // Get current value
             let value = parseFloat(index.textContent.replace(',', ''));
-            
-            // Random small change (-0.1% to +0.1%)
             const change = value * (Math.random() * 0.002 - 0.001);
             value += change;
-            
-            // Update display
+
             index.textContent = value.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
-            
-            // Update change percentage
+
             const changeEl = changes[i];
             let changeValue = parseFloat(changeEl.textContent.replace('%', '').replace('+', ''));
-            
+
             if (change > 0) {
                 changeValue += 0.01;
                 changeEl.classList.remove('change-down');
@@ -269,17 +223,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
-        // Update sentiment indicator position
+
         const sentimentIndicator = document.querySelector('.sentiment-indicator');
         let position = parseFloat(sentimentIndicator.style.left);
         position += (Math.random() * 2 - 1);
-        
-        // Keep within bounds (10% to 90%)
         position = Math.max(10, Math.min(90, position));
         sentimentIndicator.style.left = `${position}%`;
-        
-        // Update sentiment reading
+
         const sentimentReading = document.querySelector('.sentiment-reading');
         if (position < 30) {
             sentimentReading.textContent = 'Bearish';
@@ -293,12 +243,10 @@ document.addEventListener('DOMContentLoaded', function() {
             sentimentReading.textContent = 'Bullish';
         }
     }
-    
-    // Update every 5 seconds
+
     setInterval(updateMarketData, 5000);
-    
-    // Add to watchlist functionality
-    document.getElementById('addToWatchlist').addEventListener('click', function() {
+
+    document.getElementById('addToWatchlist').addEventListener('click', function () {
         alert('Feature coming soon: Add stocks to your watchlist');
     });
 });
