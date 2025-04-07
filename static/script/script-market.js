@@ -1,50 +1,60 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch real-time news from NewsAPI
+    // Fetch real-time market news from Finnhub API
     async function fetchNews() {
-        const accessKey = 'bf72c4656b00950edbe6484d11ee98fa'; 
+        const API_KEY = 'cvptsspr01qi0ef5hn70cvptsspr01qi0ef5hn7g';  // Replace with your actual key
+        const url = `https://finnhub.io/api/v1/news?category=general&token=${API_KEY}`;
+
         try {
-            const response = await fetch(`http://api.mediastack.com/v1/news?access_key=${accessKey}&categories=business&languages=en&limit=7`);
-            const data = await response.json();
-    
-            if (data.data) {
-                populateNews(data.data); 
+            const response = await fetch(url);
+            const articles = await response.json();
+
+            if (articles && Array.isArray(articles)) {
+                populateNews(articles);
             } else {
-                console.error('No news articles found:', data);
+                console.error('No news articles found:', articles);
             }
         } catch (error) {
             console.error('Failed to fetch news:', error);
         }
     }
-    
 
     // Render fetched news to the DOM
     function populateNews(articles) {
         const newsFeed = document.getElementById('newsFeed');
         newsFeed.innerHTML = '';
-    
-        articles.forEach(article => {
+
+        articles.slice(0, 10).forEach(article => {
             const newsItem = document.createElement('div');
             newsItem.className = 'news-item';
-    
+            newsItem.style.marginBottom = '20px';
+
             newsItem.innerHTML = `
-                <div class="news-title">${article.title}</div>
-                <div class="news-meta">
-                    <span class="news-source">${article.source || 'Unknown Source'}</span>
-                    <span class="news-timestamp">${new Date(article.published_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <div class="news-title" style="font-weight:bold;">${article.headline}</div>
+                <div class="news-meta" style="font-size: 0.9em; color: gray;">
+                    <span class="news-source">${article.source || 'Unknown Source'}</span> •
+                    <span class="news-timestamp">${new Date(article.datetime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
-                <div class="news-summary">${article.description || 'No summary available.'}</div>
+                <div class="news-summary" style="margin-top: 5px;">${article.summary || 'No summary available.'}</div>
+                <div class="news-tags" style="margin-top: 8px;">
+                    <a href="${article.url}" target="_blank" style="color: blue; text-decoration: underline;">Read more</a>
+                </div>
             `;
-    
+
             newsFeed.appendChild(newsItem);
         });
     }
-    
 
-    // Call fetchNews on page load
+    // Load news on page load
     fetchNews();
 
+    // Optional: refresh every 30 minutes
+    setInterval(fetchNews, 1800000);
+
+
+
+
     // Optional: auto-refresh news every 60 seconds
-    setInterval(fetchNews, 60000);
+    // setInterval(fetchNews, 3600000);
 
     const API_KEY = 'RVodTpYUL3zSyS1WxOKKSAkad0KDTdqj';  // Replace this with your actual key
     const BASE_URL = 'https://financialmodelingprep.com/api/v3';
