@@ -13,11 +13,11 @@ StockOverflow is a web-based platform designed to provide a GEN AI-powered Chatb
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/ayushpandeyap975/Synapse.git
+   https://github.com/ayushpandeyap975/Stock_Overflow.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd Synapse
+   cd Stock_Overflow
    ```
 3. Install dependencies as necessary:
    ```sh
