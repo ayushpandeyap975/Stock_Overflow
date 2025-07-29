@@ -17,13 +17,12 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import send_mail
-
+from decouple import config
 
 
 
 User = get_user_model()
-
-secret_key = "6LcU-wkrAAAAAMq_Fc-2iqwdEm59XDzsxshtQLcT"
+secret_key = config('RECAPTCHA_SECRET_KEY')
 
 
 def send_welcome_email(email, name):

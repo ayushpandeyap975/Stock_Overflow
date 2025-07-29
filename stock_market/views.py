@@ -15,7 +15,7 @@ from .models import Stock
 from django.shortcuts import render, redirect
 from google import genai
 from google.genai import types
-
+from decouple import config
 import base64
 
 def format_symbol(symbol):
@@ -147,7 +147,7 @@ def stockai(request):
 
 
 def generate(user_input):
-    client = genai.Client(api_key= "AIzaSyBD_4sYWJqmS2sj3kpeBD-hBbV5Z3voamo")  # Use API key instead of Vertex AI
+    client = genai.Client(api_key=config("GEMINI_API_KEY"))  # Use API key instead of Vertex AI
 
     model = "gemini-2.0-flash-001"
     contents = [user_input]
