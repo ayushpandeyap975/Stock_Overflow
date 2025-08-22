@@ -33,10 +33,34 @@
             </div>
 
             <!-- Input Area -->
+            <div id="speech-controls" style="display: flex; align-items: center; justify-content: flex-end; gap: 18px; margin-bottom: 8px; background: #1a2634; border-radius: 8px; padding: 8px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <label style="display: flex; align-items: center; color: #fff; font-size: 1rem; gap: 6px; cursor: pointer;">
+                    <input type="checkbox" id="speakToggle" checked style="accent-color: #00bcd4; width: 18px; height: 18px; margin-right: 4px;">
+                    <span style="user-select: none;">🔊 Speak Bot Response</span>
+                </label>
+                <label style="display: flex; align-items: center; color: #fff; font-size: 1rem; gap: 6px;">
+                    <span style="user-select: none;">🌐 Language:</span>
+                    <select id="langSelect" style="background: #22304a; color: #fff; border: none; border-radius: 4px; padding: 2px 8px; font-size: 1rem;">
+                        <option value="en-IN" id="eni">English (India)</option>
+                        <option value="hi-IN">Hindi (हिन्दी)</option>
+                        <option value="en-US">English (US)</option>
+                        <option value="ta-IN">Tamil (தமிழ்)</option>
+                        <option value="te-IN">Telugu (తెలుగు)</option>
+                        <option value="bn-IN">Bengali (বাংলা)</option>
+                        <option value="gu-IN">Gujarati (ગુજરાતી)</option>
+                        <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+                        <option value="ml-IN">Malayalam (മലയാളം)</option>
+                        <option value="mr-IN">Marathi (मराठी)</option>
+                        <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
+                        <option value="ur-IN">Urdu (اردو)</option>
+                    </select>
+                </label>
+            </div>
             <div class="chat-input">
                 {% csrf_token %}
                 <input type="text" class="message-input" placeholder="Type a message..." id="messageInput">
                 <button class="send-button" id="sendButton">SEND</button>
+                <button id="mic">🎤</button>
             </div>
         </div>
     </div>
@@ -105,54 +129,120 @@
 
 
 <script>
+    const micBtn = document.getElementById('mic');
+    const synth = window.speechSynthesis;
+    
+    let recognition;
+    let isListening = false;
+    let allVoices = [];
+    
+    // 🎙️ Load all available voices once browser is ready
+    window.speechSynthesis.onvoiceschanged = () => {
+        allVoices = speechSynthesis.getVoices();
+        // Debug: Log all available voices
+        console.log('Available voices:', allVoices.length);
+        allVoices.forEach((voice, index) => {
+            console.log(`${index + 1}. ${voice.name} (${voice.lang}) - ${voice.gender || 'unknown gender'}`);
+        });
+    };
+    
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.continuous = false;
+    } else {
+        recognition = null;
+        micBtn.disabled = true;
+        micBtn.title = "Speech recognition not supported in this browser.";
+    }
+    
     document.addEventListener("DOMContentLoaded", function () {
-        let inputField = document.getElementById("messageInput");
-        let sendButton = document.getElementById("sendButton");
-        let chatBox = document.getElementById("chatMessages");
+        const inputField = document.getElementById("messageInput");
+        const sendButton = document.getElementById("sendButton");
+        const chatBox = document.getElementById("chatMessages");
     
-        // Send message on button click
+        micBtn.addEventListener('click', () => {
+            if (!recognition) {
+                alert("Speech recognition is not supported in this browser.");
+                return;
+            }
+            if (!isListening) {
+                recognition.start();
+                micBtn.classList.add("listening");
+            } else {
+                recognition.stop();
+                micBtn.classList.remove("listening");
+            }
+        });
+    
+        if (recognition) {
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                inputField.value = transcript;
+            };
+    
+            recognition.onstart = () => isListening = true;
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove("listening");
+            };
+    
+            recognition.onerror = function (event) {
+                isListening = false;
+                micBtn.classList.remove("listening");
+                const errMsgs = {
+                    "no-speech": "No speech detected, please try again!",
+                    "audio-capture": "No microphone found.",
+                    "not-allowed": "Mic access denied."
+                };
+                inputField.placeholder = errMsgs[event.error] || `Speech recognition error: ${event.error}`;
+                setTimeout(() => inputField.placeholder = "Type a message...", 2500);
+            };
+        }
+    
         sendButton.addEventListener("click", sendMessage);
-    
-        // Send message when Enter is pressed (without Shift)
         inputField.addEventListener("keypress", function (event) {
             if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault(); // Prevents new line in input
+                event.preventDefault();
                 sendMessage();
             }
         });
     
         function sendMessage() {
             let messageText = inputField.value.trim();
+            if (messageText === "") return;
     
-            if (messageText !== "") {
-                addMessage(messageText, "user"); // Show user message
-                inputField.value = "";
+            addMessage(messageText, "user");
+            inputField.value = "";
     
-                // Show "AI is typing..." message
-                let typingMessage = addMessage("AI is generating a response...", "bot", true);
+            let typingMessage = addMessage("AI is generating a response...", "bot", true);
     
-                // Perform AJAX request to backend API
-                $.ajax({
-                    type: "POST",
-                    url: "http://127.0.0.1:8000/market/chat_bot/", // Django API endpoint
-                    data: {
-                        message: messageText,
-                        csrfmiddlewaretoken: "{{ csrf_token }}" // CSRF token
-                    },
-                    success: function (response) {
-                        removeTyping(typingMessage); // Remove typing indicator
-                        if (response && response.response) {
-                            animateTyping(response.response, "bot"); // Word-by-word animation
-                        } else {
-                            addMessage("Sorry, I couldn't understand that.", "bot");
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/market/chat_bot/",
+                data: {
+                    message: messageText,
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    removeTyping(typingMessage);
+                    if (response && response.response) {
+                        animateTyping(response.response, "bot");
+                        const speakToggle = document.getElementById('speakToggle');
+                        const langSelect = document.getElementById('langSelect');
+                        if (speakToggle && speakToggle.checked) {
+                            speak(response.response, langSelect ? langSelect.value : 'en-IN');
                         }
-                    },
-                    error: function () {
-                        removeTyping(typingMessage);
-                        addMessage("Oops! Something went wrong. Please try again later.", "bot");
+                    } else {
+                        addMessage("Sorry, I couldn't understand that.", "bot");
                     }
-                });
-            }
+                },
+                error: function () {
+                    removeTyping(typingMessage);
+                    addMessage("Oops! Something went wrong. Please try again later.", "bot");
+                }
+            });
         }
     
         function addMessage(text, sender, isTyping = false) {
@@ -175,7 +265,6 @@
             messageDiv.appendChild(textDiv);
             chatBox.appendChild(messageDiv);
     
-            // Apply animation
             messageDiv.style.opacity = "0";
             messageDiv.style.transform = "translateY(10px)";
             setTimeout(() => {
@@ -183,20 +272,17 @@
                 messageDiv.style.transform = "translateY(0)";
             }, 100);
     
-            // Scroll to the bottom
             chatBox.scrollTop = chatBox.scrollHeight;
     
-            return isTyping ? messageDiv : textDiv; // Return the text container for typing animation
+            return isTyping ? messageDiv : textDiv;
         }
     
         function removeTyping(typingMessage) {
-            if (typingMessage) {
-                typingMessage.remove();
-            }
+            if (typingMessage) typingMessage.remove();
         }
     
         function animateTyping(text, sender) {
-            let textDiv = addMessage("", sender); // Create an empty message div
+            let textDiv = addMessage("", sender);
             let words = text.split(" ");
             let index = 0;
     
@@ -204,15 +290,153 @@
                 if (index < words.length) {
                     textDiv.textContent += words[index] + " ";
                     index++;
-                    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
-                    setTimeout(typeWord, 100); // Adjust speed (100ms per word)
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    setTimeout(typeWord, 100);
                 }
             }
     
             typeWord();
         }
+    
+        // 🌍 Translation function using LibreTranslate
+        async function translateText(text, targetLang) {
+            try {
+                const response = await fetch('https://libretranslate.com/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        q: text,
+                        source: 'en',
+                        target: targetLang.split('-')[0], // e.g., "hi" from "hi-IN"
+                        format: 'text'
+                    })
+                });
+    
+                if (!response.ok) throw new Error('Translation failed');
+    
+                const data = await response.json();
+                return data.translatedText;
+            } catch (error) {
+                console.error('Translation error:', error);
+                return null;
+            }
+        }
+    
+        // 🔊 Speak the bot response in selected language
+        async function speak(originalText, selectedLangCode = 'en-IN') {
+            let textToSpeak = originalText;
+            let langCode = selectedLangCode;
+    
+            if (!langCode.startsWith('en')) {
+                const translated = await translateText(originalText, langCode);
+                if (translated) {
+                    textToSpeak = translated;
+                } else {
+                    console.warn("Fallback to English: translation failed.");
+                    langCode = 'en-IN';
+                }
+            }
+    
+            // Try multiple TTS methods for better multilingual support
+            await speakWithMultipleMethods(textToSpeak, langCode);
+        }
+
+        // Enhanced multilingual TTS with multiple fallback methods
+        async function speakWithMultipleMethods(text, langCode) {
+            const lang = langCode.split('-')[0]; // Get language code (e.g., 'hi' from 'hi-IN')
+            
+            // Method 1: Try Google Translate TTS (works for most languages including Hindi)
+            try {
+                await speakWithGoogleTTS(text, lang);
+                return;
+            } catch (error) {
+                console.log('Google TTS failed, trying browser TTS...');
+            }
+            
+            // Method 2: Try browser's speech synthesis with better voice selection
+            try {
+                await speakWithBrowserTTS(text, langCode);
+                return;
+            } catch (error) {
+                console.log('Browser TTS failed, trying fallback...');
+            }
+            
+            // Method 3: Fallback to English with Indian accent
+            console.log('All TTS methods failed, using English fallback');
+            await speakWithBrowserTTS(text, 'en-IN');
+        }
+
+        // Google Translate TTS method (works for Hindi, Tamil, etc.)
+        async function speakWithGoogleTTS(text, lang) {
+            return new Promise((resolve, reject) => {
+                const audio = new Audio();
+                const encodedText = encodeURIComponent(text);
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${lang}&client=tw-ob`;
+                
+                audio.src = url;
+                audio.onloadstart = () => {
+                    console.log(`Playing Google TTS for ${lang}: ${text.substring(0, 50)}...`);
+                };
+                audio.onended = () => resolve();
+                audio.onerror = (error) => {
+                    console.error('Google TTS error:', error);
+                    reject(error);
+                };
+                
+                synth.cancel(); // Stop any current speech
+                audio.play().catch(reject);
+            });
+        }
+
+        // Enhanced browser TTS with better voice selection
+        async function speakWithBrowserTTS(text, langCode) {
+            return new Promise((resolve, reject) => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = langCode;
+                
+                // Enhanced voice selection
+                let voices = allVoices;
+                let selectedVoice = null;
+                
+                // Try exact language match
+                selectedVoice = voices.find(v => v.lang === langCode);
+                
+                // Try language family match
+                if (!selectedVoice) {
+                    const langFamily = langCode.split('-')[0];
+                    selectedVoice = voices.find(v => v.lang && v.lang.startsWith(langFamily));
+                }
+                
+                // Try any Indian English voice for Indian languages
+                if (!selectedVoice && langCode.includes('-IN')) {
+                    selectedVoice = voices.find(v => v.lang && v.lang.includes('en-IN'));
+                }
+                
+                // Prefer female voices
+                if (selectedVoice) {
+                    const femaleVoice = voices.find(v => 
+                        v.lang === selectedVoice.lang && 
+                        (v.name.toLowerCase().includes('female') || v.gender === 'female')
+                    );
+                    if (femaleVoice) selectedVoice = femaleVoice;
+                }
+                
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                    console.log(`Using browser voice: ${selectedVoice.name} for ${langCode}`);
+                } else {
+                    console.log(`No specific voice found for ${langCode}, using default`);
+                }
+                
+                utterance.onend = () => resolve();
+                utterance.onerror = (error) => reject(error);
+                
+                synth.cancel();
+                synth.speak(utterance);
+            });
+        }
     });
-    </script>
+</script>
     
 
 {% endblock %}

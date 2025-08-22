@@ -17,6 +17,8 @@ from google import genai
 from google.genai import types
 from decouple import config
 import base64
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 def format_symbol(symbol):
     if not isinstance(symbol, str):  
@@ -146,14 +148,12 @@ def stockai(request):
 
 
 
-def generate(user_input):
+def generate(user_input, lang="en-IN"):
     client = genai.Client(api_key=config("GEMINI_API_KEY"))  # Use API key instead of Vertex AI
 
     model = "gemini-2.0-flash-001"
     contents = [user_input]
 
-
-    
     generate_content_config = types.GenerateContentConfig(
         temperature=1,
         top_p=0.95,
@@ -165,7 +165,13 @@ def generate(user_input):
             types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="OFF"),
             types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="OFF")
         ],
-        system_instruction=[types.Part.from_text(text="Answer only finance, tax and investment related questions. Do not display any disclaimers like, 'I am a chatbot. Seek professional advice.' ")],
+        system_instruction=[
+            types.Part.from_text(
+                text=f"Answer only finance, tax and investment related questions. "
+                    f"Do not display any disclaimers like, 'I am a chatbot. Seek professional advice.' "
+                    f"Only answer in the language specified by this language code {lang}"
+            )
+        ],
     )
 
     generated_text = "" 
@@ -176,15 +182,23 @@ def generate(user_input):
     ):
         generated_text += chunk.text
     generated_text = generated_text.replace("*", "")
+
     return generated_text
 
 
+@csrf_exempt  # Optional: only if you're testing from external tools. You can remove this if CSRF token is already used.
+@require_POST
 def chat_bot(request):
     try:
-        if request.method == 'POST':
-            user_input = request.POST.get('message', "")
-            bot_response = generate(user_input)
-            print(bot_response)
-            return JsonResponse({"response": bot_response})
+        user_input = request.POST.get('message', "")
+        lang = request.POST.get('lang', "en-IN").strip().lower()
+        
+        mode = request.POST.get( '', "text").strip().lower()
+        if not user_input:
+            return JsonResponse({"response": "Sorry, I didn't receive any message."}, status=400)
+
+        bot_response = generate(user_input, lang)
+        return JsonResponse({"response": bot_response})
     except Exception as e:
-        return False
+        print(f"[chat_bot error] {e}")
+        return JsonResponse({"response": "Something went wrong on the server."}, status=500)
